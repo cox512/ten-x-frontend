@@ -8,6 +8,7 @@ Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 test("renders without error", () => {
   const wrapper = shallow(<StockGlance />);
-  // expect(wrapper).toBeFalsy();
+  const appComponent = wrapper.find("[data-test='component-stockGlance']");
+  expect(appComponent.length).toBe(1);
 });
 test("renders stock information", () => {});

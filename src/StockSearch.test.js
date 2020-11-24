@@ -8,6 +8,7 @@ Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 test("renders without error", () => {
   const wrapper = shallow(<StockSearch />);
-  // expect(wrapper).toBeFalsy();
+  const appComponent = wrapper.find("[data-test='component-stockSearch']");
+  expect(appComponent.length).toBe(1);
 });
 test("renders search input", () => {});

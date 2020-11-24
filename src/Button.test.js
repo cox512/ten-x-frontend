@@ -8,6 +8,7 @@ Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 test("renders without error", () => {
   const wrapper = shallow(<Button />);
-  // expect(wrapper).toBeFalsy();
+  const appComponent = wrapper.find("[data-test='component-button']");
+  expect(appComponent.length).toBe(1);
 });
 test("renders button", () => {});
