@@ -11,11 +11,8 @@ const useStocks = (functionCall, term) => {
       `/query?function=${functionCall}&${termKey}=${term}`
     );
 
-    setStockData(response.data.bestMatches);
-    // console.log("response:", response);
-    // if (response.data.bestMatches) {
-    //   setReturnedStocks(response.data.bestMatches);
-    // }
+    setStockData(response.data);
+
     // console.log("returnedStocks:", returnedStocks);
     // if (response.data["Global Quote"]) {
     //   setCurrentStockData(response.data["Global Quote"]);
