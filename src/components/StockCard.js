@@ -9,11 +9,9 @@ const StockCard = (props) => {
       <StockSearch
         search={props.search}
         returnedStocks={props.returnedStocks}
-        // setSelectedStock={props.setSelectedStock}
-        // selectedStock={props.selectedStock}
         setReturnedStocks={props.setReturnedStocks}
       />
-      <StockGlance />
+      <StockGlance currentStockData={props.currentStockData} />
       <Button />
     </div>
   );

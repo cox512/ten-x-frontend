@@ -27,6 +27,7 @@ const App = () => {
         search={search}
         returnedStocks={returnedStocks}
         setReturnedStocks={setReturnedStocks}
+        currentStockData={currentStockData}
       />
     </div>
   );
