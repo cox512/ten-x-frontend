@@ -1,6 +1,11 @@
 import React from "react";
+// import useStocks from "../hooks/useStocks";
 
 const StockGlance = () => {
+  // const [currentStockData, setCurrentStockData] = useStocks();
+
+  // console.log("StockGlance:", currentStockData);
+
   return (
     <div className="" data-test="component-stockGlance">
       <h4 className="section-head">F</h4>

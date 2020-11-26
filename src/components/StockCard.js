@@ -7,8 +7,11 @@ const StockCard = (props) => {
   return (
     <div data-test="component-stockCard" className="card-border display">
       <StockSearch
-        onSubmit={props.onSearchSubmit}
-        searchResults={props.stocks}
+        search={props.search}
+        returnedStocks={props.returnedStocks}
+        // setSelectedStock={props.setSelectedStock}
+        // selectedStock={props.selectedStock}
+        setReturnedStocks={props.setReturnedStocks}
       />
       <StockGlance />
       <Button />

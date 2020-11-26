@@ -1,28 +1,29 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import StockCard from "./StockCard";
-import SearchResults from "./SearchResults";
-import alphaVantage from "../APIs/alphaVantage";
+import useStocks from "../hooks/useStocks";
 
 const App = () => {
-  const [stocks, setStocks] = useState([]);
+  //This is returned from our custom useStocks hook. It's an array of our returnedStocks and our search function  --> MAY BE ABLE TO DELETE THIS SINCE I'M PUTTING A LOT OF THIS FUNCTIONALITY IN SEARCHRESULTS
+  const [currentStockData, setCurrentStockData] = useState({});
+  const [returnedStocks, setReturnedStocks] = useState();
+  const [stockData, setStockData, search] = useStocks();
 
-  const onSearchSubmit = async (term) => {
-    const response = await alphaVantage.get("/query", {
-      //Why is 'query' here?
-      params: {
-        function: "SYMBOL_SEARCH",
-        keywords: term,
-      },
-    });
-    setStocks(response.data.bestMatches);
-    // console.log(stocks);
-  };
+  useEffect(() => {
+    setReturnedStocks(stockData);
+  }, [stockData]);
+  console.log("returnedStocks:", returnedStocks);
+  console.log("stockData", stockData);
+  // console.log("currentStockData:", currentStockData);
 
   return (
     <div data-test="component-app">
-      <StockCard onSearchSubmit={onSearchSubmit} stocks={stocks} />
-      <SearchResults />
+      <StockCard
+        stockData={stockData}
+        setStockData={setStockData}
+        search={search}
+        returnedStocks={returnedStocks}
+        setReturnedStocks={setReturnedStocks}
+      />
     </div>
   );
 };

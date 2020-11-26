@@ -1,20 +1,36 @@
 import { useState } from "react";
 import alphaVantage from "../APIs/alphaVantage";
 
-const useStocks = () => {
-  const [stocks, setStocks] = useState([]);
+const useStocks = (functionCall, term) => {
+  // const [returnedStocks, setReturnedStocks] = useState([]);
+  // const [currentStockData, setCurrentStockData] = useState({});
+  const [stockData, setStockData] = useState();
 
-  const search = async (term) => {
-    const response = await alphaVantage.get("/query", {
-      params: {
-        function: "SYMBOL_SEARCH",
-        keywords: term,
-      },
-    });
-    setStocks(response.data.bestMatches);
+  const search = async (functionCall, termKey, term) => {
+    const response = await alphaVantage.get(
+      `/query?function=${functionCall}&${termKey}=${term}`
+    );
+
+    setStockData(response.data.bestMatches);
+    // console.log("response:", response);
+    // if (response.data.bestMatches) {
+    //   setReturnedStocks(response.data.bestMatches);
+    // }
+    // console.log("returnedStocks:", returnedStocks);
+    // if (response.data["Global Quote"]) {
+    //   setCurrentStockData(response.data["Global Quote"]);
+    // }
   };
-  console.log(stocks);
-  return [stocks, search];
+
+  return [
+    stockData,
+    setStockData,
+    // returnedStocks,
+    // setReturnedStocks,
+    // currentStockData,
+    // setCurrentStockData,
+    search,
+  ];
 };
 
 export default useStocks;

@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import SearchResults from "./SearchResults";
 
-const StockSearch = (props) => {
+const StockSearch = ({ returnedStocks, setReturnedStocks, search }) => {
   const [term, setTerm] = useState("");
+  // const [search] = useStocks();
 
-  const onFormSubmit = (event) => {
+  const onFormSubmit = (event, stock) => {
     event.preventDefault();
-    props.onSubmit(term);
+    setTerm("");
+    setReturnedStocks([]);
+    console.log("is Term cleared?:", term);
+    search("GLOBAL_QUOTE", "symbol", stock);
   };
+
   return (
     <div className="ui segment">
       <form
@@ -17,7 +22,6 @@ const StockSearch = (props) => {
       >
         <div className="field">
           <label>Search for a company:</label>
-          {/* <i className="inverted circular link search icon"></i> */}
           <input
             type="text"
             value={term}
@@ -26,7 +30,14 @@ const StockSearch = (props) => {
           />
         </div>
       </form>
-      <SearchResults searchResults={props.searchResults} />
+      <SearchResults
+        term={term}
+        search={search}
+        returnedStocks={returnedStocks}
+        // setSelectedStock={setSelectedStock}
+        onFormSubmit={onFormSubmit}
+        setReturnedStocks={setReturnedStocks}
+      />
     </div>
   );
 };

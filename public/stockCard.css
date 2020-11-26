@@ -36,3 +36,7 @@
     list-style-type: none;
     text-align: start;
 }
+
+li.content {
+    list-style: none;
+}

@@ -1,32 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-const SearchResults = (props) => {
-  console.log(props.searchResults);
+const SearchResults = ({ returnedStocks, search, term, onFormSubmit }) => {
+  let renderedReturnedStocks;
 
-  //   useEffect(() => {
-  //     const stockOptions = props.searchResults.map(({ symbol, name }) => {
-  //       return (
-  //         <li key={symbol}>
-  //           {symbol} | {name}
-  //         </li>
-  //       );
-  //     });
-  //   }, [props.searchResults]);
+  useEffect(() => {
+    if (term) {
+      search("SYMBOL_SEARCH", "keywords", term);
+    }
+  }, [term]);
+
+  const onSubmit = async (event, stock) => {
+    onFormSubmit(event, stock);
+  };
+
+  if (returnedStocks) {
+    renderedReturnedStocks = returnedStocks.map((stock) => {
+      return (
+        <div className="item" key={stock["1. symbol"]}>
+          <div
+            className="content"
+            onClick={(e) => onSubmit(e, stock["1. symbol"])}
+          >
+            {stock["1. symbol"]} | {stock["2. name"]}
+          </div>
+        </div>
+      );
+    });
+  }
 
   return (
-    <div>
-      <ul className="search-results">
-        {props.searchResults
-          ? props.searchResults.map((stock) => {
-              return (
-                <li className="seperate" key={stock["1. symbol"]}>
-                  {stock["1. symbol"]} | {stock["2. name"]}
-                </li>
-              );
-            })
-          : null}
-      </ul>
-    </div>
+    <>
+      {returnedStocks ? (
+        <div className="search-results ui divided list">
+          <h4>Select from the list below</h4>
+          {renderedReturnedStocks}
+        </div>
+      ) : null}
+    </>
   );
 };
 
