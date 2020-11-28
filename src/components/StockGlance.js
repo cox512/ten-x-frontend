@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 const isNeg = RegExp(/^-/);
-//NOTE: This returns a NodeList, not an array.
+
 const priceChangeColor = Array.from(document.querySelectorAll(".price-change"));
 
 const formatter = new Intl.NumberFormat("en-US", {
@@ -11,17 +11,14 @@ const formatter = new Intl.NumberFormat("en-US", {
 
 const StockGlance = ({ currentStockData }) => {
   useEffect(() => {
-    const colorChange = () => {
-      priceChangeColor.forEach((element) => {
-        isNeg.test(element.innerText)
-          ? (element.style.color = "red")
-          : (element.style.color = "green");
-      });
-    };
-    colorChange();
+    priceChangeColor.forEach((element) => {
+      isNeg.test(currentStockData["09. change"])
+        ? (element.style.color = "red")
+        : (element.style.color = "green");
+    });
   }, [currentStockData]);
 
-  // console.log("priceChangeColor:", priceChangeColor);
+  console.log("priceChangeColor:", priceChangeColor);
 
   return (
     <div data-test="component-stockGlance">

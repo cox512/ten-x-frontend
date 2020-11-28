@@ -22,11 +22,10 @@ const SearchResults = ({ returnedStocks, search, term, onFormSubmit }) => {
   const onSubmit = async (event, stock) => {
     onFormSubmit(event, stock);
   };
+
   //had returnedStock !== undefined earlier and it worked fine.
   if (returnedStocks) {
-    // console.log("returnedStocks:", returnedStocks);
     returnedStocksArray = returnedStocks.bestMatches;
-    // console.log("returnedStocksARray:", returnedStocksArray);
     if (returnedStocksArray) {
       renderedReturnedStocks = returnedStocksArray.map((stock) => {
         return (
@@ -35,7 +34,9 @@ const SearchResults = ({ returnedStocks, search, term, onFormSubmit }) => {
               className="content"
               onClick={(e) => onSubmit(e, stock["1. symbol"])}
             >
-              {stock["1. symbol"]} | {stock["2. name"]}
+              <p>
+                {stock["1. symbol"]} | {stock["2. name"]}
+              </p>
             </div>
           </div>
         );

@@ -34,7 +34,6 @@ const StockSearch = ({ returnedStocks, setReturnedStocks, search }) => {
         search={search}
         returnedStocks={returnedStocks}
         onFormSubmit={onFormSubmit}
-        // setReturnedStocks={setReturnedStocks}
       />
     </div>
   );

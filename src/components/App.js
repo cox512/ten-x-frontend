@@ -15,8 +15,6 @@ const App = () => {
     }
   }, [stockData]);
 
-  console.log("playing with currentStockData:", currentStockData);
-
   console.log("returnedStocks:", returnedStocks);
   console.log("stockData", stockData);
   console.log("currentStockData:", currentStockData);

@@ -1,9 +1,9 @@
 import React from "react";
 
-const Button = () => {
+const Button = ({ text }) => {
   return (
     <div data-test="component-button">
-      <button className="ui inverted primary button">More info</button>
+      <button className="ui inverted primary button">{text}</button>
     </div>
   );
 };

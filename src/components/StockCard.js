@@ -3,18 +3,23 @@ import StockGlance from "./StockGlance";
 import StockSearch from "./StockSearch";
 import Button from "./Button";
 
-const StockCard = (props) => {
+const StockCard = ({
+  search,
+  returnedStocks,
+  setReturnedStocks,
+  currentStockData,
+}) => {
   return (
     <div data-test="component-stockCard" className="card-border display">
       <StockSearch
-        search={props.search}
-        returnedStocks={props.returnedStocks}
-        setReturnedStocks={props.setReturnedStocks}
+        search={search}
+        returnedStocks={returnedStocks}
+        setReturnedStocks={setReturnedStocks}
       />
-      {Object.keys(props.currentStockData).length !== 0 ? (
+      {Object.keys(currentStockData).length !== 0 ? (
         <>
-          <StockGlance currentStockData={props.currentStockData} />
-          <Button />
+          <StockGlance currentStockData={currentStockData} />
+          <Button text="More Info" />
         </>
       ) : null}
     </div>
