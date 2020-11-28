@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const SearchResults = ({ returnedStocks, search, term, onFormSubmit }) => {
+const SearchResults = ({ returnedStocks, stockSearch, term, onFormSubmit }) => {
   const [debouncedTerm, setDebouncedTerm] = useState(term);
   let renderedReturnedStocks;
   let returnedStocksArray;
@@ -16,7 +16,7 @@ const SearchResults = ({ returnedStocks, search, term, onFormSubmit }) => {
   }, [term]);
 
   useEffect(() => {
-    search("SYMBOL_SEARCH", "keywords", debouncedTerm);
+    stockSearch("SYMBOL_SEARCH", "keywords", debouncedTerm);
   }, [debouncedTerm]);
 
   const onSubmit = async (event, stock) => {

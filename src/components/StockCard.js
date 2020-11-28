@@ -4,7 +4,7 @@ import StockSearch from "./StockSearch";
 import Button from "./Button";
 
 const StockCard = ({
-  search,
+  stockSearch,
   returnedStocks,
   setReturnedStocks,
   currentStockData,
@@ -12,7 +12,7 @@ const StockCard = ({
   return (
     <div data-test="component-stockCard" className="card-border display">
       <StockSearch
-        search={search}
+        stockSearch={stockSearch}
         returnedStocks={returnedStocks}
         setReturnedStocks={setReturnedStocks}
       />

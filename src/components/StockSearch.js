@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SearchResults from "./SearchResults";
 
-const StockSearch = ({ returnedStocks, setReturnedStocks, search }) => {
+const StockSearch = ({ returnedStocks, setReturnedStocks, stockSearch }) => {
   const [term, setTerm] = useState("");
 
   const onFormSubmit = (event, stock) => {
@@ -9,7 +9,7 @@ const StockSearch = ({ returnedStocks, setReturnedStocks, search }) => {
     setTerm("");
     setReturnedStocks([]);
     console.log("is Term cleared?:", term);
-    search("GLOBAL_QUOTE", "symbol", stock);
+    stockSearch("GLOBAL_QUOTE", "symbol", stock);
   };
 
   return (
@@ -31,7 +31,7 @@ const StockSearch = ({ returnedStocks, setReturnedStocks, search }) => {
       </form>
       <SearchResults
         term={term}
-        search={search}
+        stockSearch={stockSearch}
         returnedStocks={returnedStocks}
         onFormSubmit={onFormSubmit}
       />

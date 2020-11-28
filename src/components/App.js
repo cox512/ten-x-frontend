@@ -5,7 +5,7 @@ import useStocks from "../hooks/useStocks";
 const App = () => {
   const [currentStockData, setCurrentStockData] = useState({});
   const [returnedStocks, setReturnedStocks] = useState([]);
-  const [stockData, setStockData, search] = useStocks([]);
+  const [stockData, setStockData, stockSearch] = useStocks([]);
 
   useEffect(() => {
     if (stockData !== undefined && stockData.bestMatches) {
@@ -22,7 +22,7 @@ const App = () => {
   return (
     <div data-test="component-app">
       <StockCard
-        search={search}
+        stockSearch={stockSearch}
         returnedStocks={returnedStocks}
         setReturnedStocks={setReturnedStocks}
         currentStockData={currentStockData}

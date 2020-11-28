@@ -4,7 +4,7 @@ import alphaVantage from "../APIs/alphaVantage";
 const useStocks = (functionCall, term) => {
   const [stockData, setStockData] = useState();
 
-  const search = async (functionCall, termKey, term) => {
+  const stockSearch = async (functionCall, termKey, term) => {
     const response = await alphaVantage.get(
       `/query?function=${functionCall}&${termKey}=${term}`
     );
@@ -12,7 +12,7 @@ const useStocks = (functionCall, term) => {
     setStockData(response.data);
   };
 
-  return [stockData, setStockData, search];
+  return [stockData, setStockData, stockSearch];
 };
 
 export default useStocks;
