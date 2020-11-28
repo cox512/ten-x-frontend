@@ -3,7 +3,6 @@ import SearchResults from "./SearchResults";
 
 const StockSearch = ({ returnedStocks, setReturnedStocks, search }) => {
   const [term, setTerm] = useState("");
-  // const [search] = useStocks();
 
   const onFormSubmit = (event, stock) => {
     event.preventDefault();
@@ -34,9 +33,8 @@ const StockSearch = ({ returnedStocks, setReturnedStocks, search }) => {
         term={term}
         search={search}
         returnedStocks={returnedStocks}
-        // setSelectedStock={setSelectedStock}
         onFormSubmit={onFormSubmit}
-        setReturnedStocks={setReturnedStocks}
+        // setReturnedStocks={setReturnedStocks}
       />
     </div>
   );

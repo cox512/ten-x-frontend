@@ -11,8 +11,12 @@ const StockCard = (props) => {
         returnedStocks={props.returnedStocks}
         setReturnedStocks={props.setReturnedStocks}
       />
-      <StockGlance currentStockData={props.currentStockData} />
-      <Button />
+      {Object.keys(props.currentStockData).length !== 0 ? (
+        <>
+          <StockGlance currentStockData={props.currentStockData} />
+          <Button />
+        </>
+      ) : null}
     </div>
   );
 };

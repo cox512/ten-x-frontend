@@ -1,24 +1,32 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const SearchResults = ({ returnedStocks, search, term, onFormSubmit }) => {
+  const [debouncedTerm, setDebouncedTerm] = useState(term);
   let renderedReturnedStocks;
-
-  useEffect(() => {}, [returnedStocks]);
+  let returnedStocksArray;
 
   useEffect(() => {
-    if (term) {
-      search("SYMBOL_SEARCH", "keywords", term);
-    }
+    const timerId = setTimeout(() => {
+      setDebouncedTerm(term);
+    }, 800);
+
+    return () => {
+      clearTimeout(timerId);
+    };
   }, [term]);
+
+  useEffect(() => {
+    search("SYMBOL_SEARCH", "keywords", debouncedTerm);
+  }, [debouncedTerm]);
 
   const onSubmit = async (event, stock) => {
     onFormSubmit(event, stock);
   };
-
-  if (returnedStocks !== undefined) {
-    console.log("returnedStocks:", returnedStocks);
-    let returnedStocksArray = returnedStocks.bestMatches;
-    console.log("returnedStocksARray:", returnedStocksArray);
+  //had returnedStock !== undefined earlier and it worked fine.
+  if (returnedStocks) {
+    // console.log("returnedStocks:", returnedStocks);
+    returnedStocksArray = returnedStocks.bestMatches;
+    // console.log("returnedStocksARray:", returnedStocksArray);
     if (returnedStocksArray) {
       renderedReturnedStocks = returnedStocksArray.map((stock) => {
         return (
