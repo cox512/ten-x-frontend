@@ -1,0 +1,42 @@
+.card-border {
+    border: solid 2px black;
+    padding: 4px;
+    margin: 4px;
+}
+
+.inline-col {
+    display: flex !important;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.inline-row {
+    display: flex;
+    justify-content: space-around; 
+}
+
+.display {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.section-head {
+    font-size: 32px;
+    margin: 3px;
+}
+
+.section-subhead {
+    margin: 3px;
+    font-size: 24px;
+}
+
+.search-results {
+    list-style-type: none;
+    text-align: start;
+}
+
+li.content {
+    list-style: none;
+}
