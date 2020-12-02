@@ -1,9 +1,16 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { selectStockDayPerf, selectStockList } from "../actions";
 
-const SearchResults = ({ returnedStocks, stockSearch, term, onFormSubmit }) => {
+const SearchResults = ({
+  term,
+  onFormSubmit,
+  stocks,
+  selectStockList,
+  stockSearch,
+}) => {
   const [debouncedTerm, setDebouncedTerm] = useState(term);
-  let renderedReturnedStocks;
-  let returnedStocksArray;
 
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -19,41 +26,45 @@ const SearchResults = ({ returnedStocks, stockSearch, term, onFormSubmit }) => {
     stockSearch("SYMBOL_SEARCH", "keywords", debouncedTerm);
   }, [debouncedTerm]);
 
-  const onSubmit = async (event, stock) => {
+  const onSubmit = (event, stock) => {
+    selectStockList();
     onFormSubmit(event, stock);
   };
 
-  //had returnedStock !== undefined earlier and it worked fine.
-  if (returnedStocks) {
-    returnedStocksArray = returnedStocks.bestMatches;
-    if (returnedStocksArray) {
-      renderedReturnedStocks = returnedStocksArray.map((stock) => {
-        return (
-          <div className="item" key={stock["1. symbol"]}>
-            <div
-              className="content"
-              onClick={(e) => onSubmit(e, stock["1. symbol"])}
-            >
-              <p>
-                {stock["1. symbol"]} | {stock["2. name"]}
-              </p>
-            </div>
+  const renderStockList = () => {
+    return stocks.map((stock) => {
+      return (
+        <div className="item" key={stock["1. symbol"]}>
+          <div className="content" onClick={(e) => onSubmit(e, stock)}>
+            {stock["1. symbol"]}
+            <div className="right floated content">{stock["2. name"]}</div>
           </div>
-        );
-      });
-    }
-  }
+        </div>
+      );
+    });
+  };
 
   return (
     <>
-      {renderedReturnedStocks ? (
+      {stocks ? (
         <div className="search-results ui divided list">
           <h4>Select from the list below</h4>
-          {renderedReturnedStocks}
+          {renderStockList()}
         </div>
       ) : null}
     </>
   );
 };
 
-export default SearchResults;
+const mapStateToProps = (state) => {
+  // console.log("state", state);
+  return {
+    stocks: state.returnedStockList[0],
+  };
+};
+
+export default connect(mapStateToProps, {
+  selectStockDayPerf, //Do I need this one here?
+  selectStockList,
+  // --> Don't need this here b/c you aren't setting state, you're just displaying.
+})(SearchResults);

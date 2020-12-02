@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import React, { useState, useEffect } from "react";
 import SearchResults from "./SearchResults";
+// import { connect } from "react-redux";
+import { selectStockList } from "../actions";
 
-const StockSearch = ({ returnedStocks, setReturnedStocks, stockSearch }) => {
+const StockSearch = (props) => {
   const [term, setTerm] = useState("");
+
+  useEffect(() => {
+    selectStockList(term);
+  }, [term]);
 
   const onFormSubmit = (event, stock) => {
     event.preventDefault();
     setTerm("");
-    setReturnedStocks([]);
-    console.log("is Term cleared?:", term);
-    stockSearch("GLOBAL_QUOTE", "symbol", stock);
+    props.stockSearch("GLOBAL_QUOTE", "symbol", stock["1. symbol"]);
   };
 
   return (
@@ -31,12 +36,19 @@ const StockSearch = ({ returnedStocks, setReturnedStocks, stockSearch }) => {
       </form>
       <SearchResults
         term={term}
-        stockSearch={stockSearch}
-        returnedStocks={returnedStocks}
+        stockSearch={props.stockSearch}
         onFormSubmit={onFormSubmit}
       />
     </div>
   );
 };
+
+// const mapStateToProps = (state) => {
+//   console.log("stock search state:", state);
+//   return {
+//     // selectStockList: state.selectStockList,
+//     // stocks: state.returnedStockList,
+//   };
+// };
 
 export default StockSearch;

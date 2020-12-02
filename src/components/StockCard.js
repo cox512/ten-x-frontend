@@ -1,24 +1,17 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import StockGlance from "./StockGlance";
 import StockSearch from "./StockSearch";
 import Button from "./Button";
+import { connect } from "react-redux";
 
-const StockCard = ({
-  stockSearch,
-  returnedStocks,
-  setReturnedStocks,
-  currentStockData,
-}) => {
+const StockCard = ({ stockSearch, stock }) => {
   return (
     <div data-test="component-stockCard" className="card-border display">
-      <StockSearch
-        stockSearch={stockSearch}
-        returnedStocks={returnedStocks}
-        setReturnedStocks={setReturnedStocks}
-      />
-      {Object.keys(currentStockData).length !== 0 ? (
+      <StockSearch stockSearch={stockSearch} />
+      {stock ? (
         <>
-          <StockGlance currentStockData={currentStockData} />
+          <StockGlance />
           <Button text="More Info" />
         </>
       ) : null}
@@ -26,4 +19,7 @@ const StockCard = ({
   );
 };
 
-export default StockCard;
+const mapStateToProps = (state) => {
+  return { stock: state.currentStock };
+};
+export default connect(mapStateToProps)(StockCard);

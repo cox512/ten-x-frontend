@@ -1,6 +1,7 @@
 import { useState } from "react";
 import alphaVantage from "../APIs/alphaVantage";
 
+// eslint-disable-next-line no-unused-vars
 const useStocks = (functionCall, term) => {
   const [stockData, setStockData] = useState();
 
