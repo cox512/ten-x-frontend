@@ -1,14 +1,13 @@
 import React from "react";
-import StockCard from "./components/StockCard";
-
+import { findByTestAttr } from "./test/testUtils";
 import Enzyme, { shallow } from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
+
+import StockCard from "./components/StockCard";
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 const setup = () => shallow(<StockCard />);
-
-const findByTestAttr = (wrapper, val) => wrapper.find(`[data-test='${val}']`);
 
 // test("renders without error", () => {
 //   const wrapper = setup();
