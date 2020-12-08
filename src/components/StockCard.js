@@ -5,11 +5,12 @@ import StockSearch from "./StockSearch";
 import Button from "./Button";
 import { connect } from "react-redux";
 
-const StockCard = ({ stockSearch, stock }) => {
+const StockCard = ({ stockDay }) => {
+  console.log("stockDay", stockDay);
   return (
     <div data-test="component-stockCard" className="card-border display">
-      <StockSearch stockSearch={stockSearch} />
-      {stock ? (
+      <StockSearch />
+      {Object.keys(stockDay).length > 0 ? (
         <>
           <StockGlance />
           <Button text="More Info" />
@@ -20,6 +21,8 @@ const StockCard = ({ stockSearch, stock }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { stock: state.currentStock };
+  return { stockDay: state.stockDay, stockOverview: state.stockOverview };
 };
 export default connect(mapStateToProps)(StockCard);
+
+// export default StockCard;

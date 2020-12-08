@@ -1,26 +1,16 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import SearchResults from "./SearchResults";
-// import { connect } from "react-redux";
-import { selectStockList } from "../actions";
+import { fetchStockDayPerf } from "../actions";
+import { connect } from "react-redux";
 
 const StockSearch = (props) => {
   const [term, setTerm] = useState("");
 
-  useEffect(() => {
-    selectStockList(term);
-  }, [term]);
-
-  const onFormSubmit = (event, stock) => {
-    event.preventDefault();
-    setTerm("");
-    props.stockSearch("GLOBAL_QUOTE", "symbol", stock["1. symbol"]);
-  };
-
   return (
     <div className="ui segment">
       <form
-        onSubmit={onFormSubmit}
+        // onSubmit={onFormSubmit}
         className="ui form inline-col "
         data-test="component-stockSearch"
       >
@@ -34,11 +24,7 @@ const StockSearch = (props) => {
           />
         </div>
       </form>
-      <SearchResults
-        term={term}
-        stockSearch={props.stockSearch}
-        onFormSubmit={onFormSubmit}
-      />
+      <SearchResults term={term} />
     </div>
   );
 };
@@ -46,9 +32,10 @@ const StockSearch = (props) => {
 // const mapStateToProps = (state) => {
 //   console.log("stock search state:", state);
 //   return {
-//     // selectStockList: state.selectStockList,
-//     // stocks: state.returnedStockList,
+//     stock: state.currentStock,
 //   };
 // };
+
+// export default connect(mapStateToProps, { fetchStockDayPerf })(StockSearch);
 
 export default StockSearch;

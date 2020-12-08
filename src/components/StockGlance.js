@@ -2,36 +2,39 @@
 import React from "react";
 import { connect } from "react-redux";
 import { formatter } from "../helpers/helpers";
+import { fetchStockDayPerf } from "../actions";
 
 const isNeg = RegExp(/^-/);
 
-const StockGlance = ({ stock }) => {
+const StockGlance = ({ stockDay, stockOverview }) => {
   return (
     <div data-test="component-stockGlance">
-      <h4 className="section-head">{stock["01. symbol"]}</h4>
-      <h5 className="section-subhead">INSERT STOCK NAME HERE</h5>
-      <p className="section-subhead">{formatter.format(stock["05. price"])}</p>
+      <h4 className="section-head">{stockDay["01. symbol"]}</h4>
+      <h5 className="section-subhead">{stockOverview["Name"]}</h5>
+      <p className="section-subhead">
+        {formatter.format(stockDay["05. price"])}
+      </p>
 
       <div className="inline-row">
         <p
           className="price-change"
           style={
-            isNeg.test(stock["09. change"])
+            isNeg.test(stockDay["09. change"])
               ? { color: "red" }
               : { color: "green" }
           }
         >
-          {formatter.format(stock["09. change"])}
+          {formatter.format(stockDay["09. change"])}
         </p>
         <p
           className="price-change"
           style={
-            isNeg.test(stock["09. change"])
+            isNeg.test(stockDay["09. change"])
               ? { color: "red" }
               : { color: "green" }
           }
         >
-          {parseFloat(stock["10. change percent"]).toFixed(2)}%
+          {parseFloat(stockDay["10. change percent"]).toFixed(2)}%
         </p>
       </div>
     </div>
@@ -39,7 +42,10 @@ const StockGlance = ({ stock }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { stock: state.currentStock };
+  console.log("stock glance state:", state);
+  return { stockDay: state.stockDay, stockOverview: state.stockOverview };
 };
 
-export default connect(mapStateToProps)(StockGlance);
+export default connect(mapStateToProps, { fetchStockDayPerf })(StockGlance);
+
+// export default StockGlance;

@@ -1,15 +1,15 @@
-//NOTE: We are using a "named export" here so we can import a single function from this file --> Remember that for your JS tools file.
-
-export const selectStockDayPerf = (stock) => {
+export const fetchStockDayPerf = (stock) => {
+  console.log("fetchStockDayPerf:", stock);
   return {
-    type: "STOCK_SELECTED",
+    type: "STOCK_DAY_PERFORMANCE",
     payload: stock,
   };
 };
 
-export const selectStockList = (stockList) => {
+export const fetchStockOverview = (stock) => {
+  console.log("fetchStockOverview:", stock);
   return {
-    type: "STOCK_LIST",
-    payload: stockList,
+    type: "STOCK_OVERVIEW",
+    payload: stock,
   };
 };

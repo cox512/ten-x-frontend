@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import returnedStockListReducer from "./returnedStockListReducer";
-import currentStockReducer from "./currentStockReducer";
+import stockDayReducer from "./stockDayReducer";
+import stockOverviewReducer from "./stockOverviewReducer";
 
 export default combineReducers({
-  currentStock: currentStockReducer,
-  returnedStockList: returnedStockListReducer,
+  stockDay: stockDayReducer,
+  stockOverview: stockOverviewReducer,
 });
