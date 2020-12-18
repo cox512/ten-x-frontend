@@ -9,8 +9,12 @@ const isNeg = RegExp(/^-/);
 const StockGlance = ({ stockDay, stockOverview }) => {
   return (
     <div data-test="component-stockGlance">
-      <h4 className="section-head">{stockDay["01. symbol"]}</h4>
-      <h5 className="section-subhead">{stockOverview["Name"]}</h5>
+      <h4 data-test="element-stock-symbol" className="section-head">
+        {stockDay["01. symbol"]}
+      </h4>
+      <h5 data-test="element-stock-name" className="section-subhead">
+        {stockOverview["Name"]}
+      </h5>
       <p className="section-subhead">
         {formatter.format(stockDay["05. price"])}
       </p>

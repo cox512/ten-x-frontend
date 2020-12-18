@@ -5,22 +5,55 @@ import { shallow } from "enzyme";
 
 const setup = (initialState = {}) => {
   const store = storeFactory(initialState);
-  const wrapper = shallow(<StockGlance store={store} />);
-  // console.log(wrapper.debug);
+  const wrapper = shallow(<StockGlance store={store} />)
+    .dive()
+    .dive();
+  // console.log(wrapper.debug());
+  return wrapper;
 };
 
-setup();
-
-test("renders without error", () => {
-  //   const wrapper = setup({ stockDay: {HMM ... THIS WILL END UP BEING SUPER LONG} });
-  //   const component = findByTestAttr(wrapper, "component-stockGlance");
-  //   expect(component.length).toBe(1);
+test("component renders without error", () => {
+  const wrapper = setup();
+  const component = findByTestAttr(wrapper, "component-stockGlance");
+  expect(component.length).toBe(1);
 });
 
-test("renders no text when stockDay is an empty object", () => {});
+describe("stockDay and stockOverview are empty", () => {
+  let wrapper;
+  beforeEach(() => {
+    const initialState = {
+      stockDay: {},
+      stockOverview: {},
+    };
+    wrapper = setup(initialState);
+  });
+  test("renders no text when stockDay is an empty object", () => {
+    const component = findByTestAttr(wrapper, "element-stock-symbol");
+    expect(component.text()).toBe("");
+  });
 
-test("renders non-empty data when stockDay has a key/value inside it", () => {});
+  test("renders no text when stockOverview is an empty object", () => {
+    const component = findByTestAttr(wrapper, "element-stock-name");
+    expect(component.text()).toBe("");
+  });
+});
 
-//Test that the component renders
-//Test that it doesn't render any text at all
-//Test that it renders non-empty text (for now we don't care what it says)
+describe("stockDay and stockOverview have data", () => {
+  let wrapper;
+  beforeEach(() => {
+    const initialState = {
+      stockDay: { "01. symbol": "F" },
+      stockOverview: { Name: "Ford Motor Company" },
+    };
+    wrapper = setup(initialState);
+  });
+  test("renders non-empty text when stockDay has data", () => {
+    const component = findByTestAttr(wrapper, "element-stock-symbol");
+    expect(component.text()).not.toBe("");
+  });
+
+  test("renders non-empty text when stockOverview has data", () => {
+    const component = findByTestAttr(wrapper, "element-stock-name");
+    expect(component.text()).not.toBe("");
+  });
+});
