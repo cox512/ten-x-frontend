@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import StockGlance from "./StockGlance";
-import StockSearch from "./StockSearch";
+import Input from "./Input";
+// import SearchResults from "./SearchResults";
 import Button from "./Button";
 import { connect } from "react-redux";
 
@@ -9,7 +10,8 @@ const StockCard = ({ stockDay }) => {
   // console.log("stockDay", stockDay);
   return (
     <div data-test="component-stockCard" className="card-border display">
-      <StockSearch />
+      <Input />
+      {/* <SearchResults /> */}
       {Object.keys(stockDay).length > 0 ? (
         <>
           <StockGlance data-test="component-stockGlance" />

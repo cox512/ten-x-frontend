@@ -4,7 +4,7 @@ import SearchResults from "./SearchResults";
 import { fetchStockDayPerf } from "../actions";
 import { connect } from "react-redux";
 
-const StockSearch = (props) => {
+const Input = (props) => {
   const [term, setTerm] = useState("");
 
   return (
@@ -12,7 +12,7 @@ const StockSearch = (props) => {
       <form
         // onSubmit={onFormSubmit}
         className="ui form inline-col "
-        data-test="component-stockSearch"
+        data-test="component-input"
       >
         <div className="field">
           <label>Search for a company:</label>
@@ -36,6 +36,6 @@ const StockSearch = (props) => {
 //   };
 // };
 
-// export default connect(mapStateToProps, { fetchStockDayPerf })(StockSearch);
+// export default connect(mapStateToProps, { fetchStockDayPerf })(Input);
 
-export default StockSearch;
+export default Input;
