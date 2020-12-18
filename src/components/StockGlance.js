@@ -42,7 +42,7 @@ const StockGlance = ({ stockDay, stockOverview }) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log("stock glance state:", state);
+  // console.log("stock glance state:", state);
   return { stockDay: state.stockDay, stockOverview: state.stockOverview };
 };
 

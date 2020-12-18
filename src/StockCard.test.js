@@ -1,18 +1,22 @@
 import React from "react";
-import { findByTestAttr } from "./test/testUtils";
-import Enzyme, { shallow } from "enzyme";
-import EnzymeAdapter from "enzyme-adapter-react-16";
+import { findByTestAttr, storeFactory } from "../test/testUtils";
+import { shallow } from "enzyme";
 
 import StockCard from "./components/StockCard";
 
-Enzyme.configure({ adapter: new EnzymeAdapter() });
-
-const setup = (props = {}) => {
-  return shallow(<StockCard {...props} />);
+const setup = (initialState = {}) => {
+  const store = storeFactory(initialState);
+  const wrapper = shallow(<StockCard store={store} />)
+    .dive()
+    .dive();
+  return wrapper;
 };
 
-test("renders without error", () => {
-  const wrapper = setup();
-  const appComponent = findByTestAttr(wrapper, "component-stockCard");
-  expect(appComponent.length).toBe(0);
+describe("No stock currently looked up", () => {
+  test("renders without error", () => {
+    const initialState = { stockDay: { "01. symbol": "F" } };
+    const wrapper = setup(initialState);
+    const component = findByTestAttr(wrapper, "component-stockCard");
+    expect(component.length).toBe(1);
+  });
 });

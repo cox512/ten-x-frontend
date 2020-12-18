@@ -6,7 +6,7 @@ import Button from "./Button";
 import { connect } from "react-redux";
 
 const StockCard = ({ stockDay }) => {
-  console.log("stockDay", stockDay);
+  // console.log("stockDay", stockDay);
   return (
     <div data-test="component-stockCard" className="card-border display">
       <StockSearch />
