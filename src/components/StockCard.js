@@ -12,8 +12,8 @@ const StockCard = ({ stockDay }) => {
       <StockSearch />
       {Object.keys(stockDay).length > 0 ? (
         <>
-          <StockGlance />
-          <Button text="More Info" />
+          <StockGlance data-test="component-stockGlance" />
+          <Button data-test="component-button" text="More Info" />
         </>
       ) : null}
     </div>
@@ -21,6 +21,7 @@ const StockCard = ({ stockDay }) => {
 };
 
 const mapStateToProps = (state) => {
+  // console.log(state);
   return { stockDay: state.stockDay, stockOverview: state.stockOverview };
 };
 export default connect(mapStateToProps)(StockCard);

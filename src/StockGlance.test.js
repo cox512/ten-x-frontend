@@ -3,7 +3,6 @@ import StockGlance from "./components/StockGlance";
 import { findByTestAttr, storeFactory } from "../test/testUtils";
 import { shallow } from "enzyme";
 
-// const defaultProps = {};
 const setup = (initialState = {}) => {
   const store = storeFactory(initialState);
   const wrapper = shallow(<StockGlance store={store} />);

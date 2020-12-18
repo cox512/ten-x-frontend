@@ -12,11 +12,41 @@ const setup = (initialState = {}) => {
   return wrapper;
 };
 
-describe("No stock currently looked up", () => {
-  test("renders without error", () => {
+test("renders componenet without error", () => {
+  const wrapper = setup({});
+  const component = findByTestAttr(wrapper, "component-stockCard");
+  expect(component.length).toBe(1);
+});
+
+//I'm just testing to see if the actual components render or not in these next 2 describe statements. I'll test the text values of each in their individual test files.
+describe("stockDay state is an empty object", () => {
+  let wrapper;
+  beforeEach(() => {
+    const initialState = { stockDay: {} };
+    wrapper = setup(initialState);
+  });
+  test("does not Render StockGlance component", () => {
+    const component = findByTestAttr(wrapper, "component-stockGlance");
+    expect(component.length).toBe(0);
+  });
+  test("does not Render Button", () => {
+    const component = findByTestAttr(wrapper, "component-button");
+    expect(component.length).toBe(0);
+  });
+});
+
+describe("stockDay holds stock data", () => {
+  let wrapper;
+  beforeEach(() => {
     const initialState = { stockDay: { "01. symbol": "F" } };
-    const wrapper = setup(initialState);
-    const component = findByTestAttr(wrapper, "component-stockCard");
+    wrapper = setup(initialState);
+  });
+  test("renders stockGlance component", () => {
+    const component = findByTestAttr(wrapper, "component-stockGlance");
+    expect(component.length).toBe(1);
+  });
+  test("renders Button component", () => {
+    const component = findByTestAttr(wrapper, "component-button");
     expect(component.length).toBe(1);
   });
 });
