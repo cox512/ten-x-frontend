@@ -1,34 +1,22 @@
-import React, { useState, useEffect } from "react";
-import StockCard from "./StockCard";
+import React, { useEffect } from "react";
+import StockCard from "./stockDisplay/StockCard";
 import useStocks from "../hooks/useStocks";
+import { connect } from "react-redux";
 
-const App = () => {
-  const [currentStockData, setCurrentStockData] = useState({});
-  const [returnedStocks, setReturnedStocks] = useState([]);
-  const [stockData, setStockData, search] = useStocks([]);
-
-  useEffect(() => {
-    if (stockData !== undefined && stockData.bestMatches) {
-      setReturnedStocks(stockData);
-    } else if (stockData !== undefined && stockData["Global Quote"]) {
-      setCurrentStockData(stockData["Global Quote"]);
-    }
-  }, [stockData]);
-
-  console.log("returnedStocks:", returnedStocks);
-  console.log("stockData", stockData);
-  console.log("currentStockData:", currentStockData);
-
+// eslint-disable-next-line react/prop-types
+const App = ({ fetchStockDayPerf }) => {
   return (
     <div data-test="component-app">
-      <StockCard
-        search={search}
-        returnedStocks={returnedStocks}
-        setReturnedStocks={setReturnedStocks}
-        currentStockData={currentStockData}
-      />
+      <StockCard />
     </div>
   );
 };
+
+// const mapStateToProps = (state) => {
+//   console.log("App state:", state);
+//   return { stockDay: state.stockDay, stockOverview: state.stockOverview };
+// };
+
+// export default connect(mapStateToProps, { fetchStockDayPerf })(App);
 
 export default App;
