@@ -1,10 +1,14 @@
 import React from "react";
-import { findByTestAttr, storeFactory } from "../test/testUtils";
+import { findByTestAttr, storeFactory, checkProps } from "../test/testUtils";
 import { shallow } from "enzyme";
-
 import StockCard from "./components/StockCard";
 
+// const defaultProps = {
+//   stockDay: [{ "01. symbol": "F" }],
+// };
+
 const setup = (initialState = {}) => {
+  // const setupProps = { ...defaultProps };
   const store = storeFactory(initialState);
   const wrapper = shallow(<StockCard store={store} />)
     .dive()
@@ -49,4 +53,10 @@ describe("stockDay holds stock data", () => {
     const component = findByTestAttr(wrapper, "component-button");
     expect(component.length).toBe(1);
   });
+});
+
+//Checking propTypes
+test("does not throw warning with expected props", () => {
+  // const expectedProps = { stockDay: {} };
+  // checkProps(StockCard, expectedProps);
 });

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
-import SearchResults from "./SearchResults";
+import SearchResults from "./stockDisplay/SearchResults";
 import { fetchStockDayPerf } from "../actions";
 import { connect } from "react-redux";
 
@@ -15,7 +15,6 @@ const Input = (props) => {
         data-test="component-input"
       >
         <div className="field">
-          <label>Search for a company:</label>
           <input
             type="text"
             value={term}

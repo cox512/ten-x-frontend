@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import StockCard from "./StockCard";
+import StockCard from "./stockDisplay/StockCard";
 import useStocks from "../hooks/useStocks";
 import { connect } from "react-redux";
 

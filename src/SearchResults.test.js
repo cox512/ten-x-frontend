@@ -1,12 +1,27 @@
 import React from "react";
-import SearchResults from "./components/SearchResults";
-import { findByTestAttr } from "../test/testUtils";
+
+import { findByTestAttr, storeFactory } from "../test/testUtils";
 import { shallow } from "enzyme";
 
-const setup = () => shallow(<SearchResults />);
+import SearchResults, {
+  UnconnectedSearchResults,
+} from "./components/SearchResults";
 
+const setup = (initialState) => {
+  const store = storeFactory(initialState);
+  const wrapper = shallow(
+    <SearchResults store={store} {...setupProps} />
+  ).dive();
+  // .dive();
+  // console.log(wrapper.debug());
+  return wrapper;
+};
+// setup();
+
+//Can't figure out how to allow me to pass stockData into the setup so it knows it's supposed to render this component. It only wants to work with the items located in the redux store.
 test("renders without error", () => {
-  //   const wrapper = setup();
-  //   const appComponent = findByTestAttr(wrapper, "component-searchResults");
-  //   expect(appComponent.length).toBe(1);
+  // const props = { stockData: "F" };
+  // const wrapper = shallow(<UnconnectedSearchResults {...props} />);
+  // const component = findByTestAttr(wrapper, "component-searchResults");
+  // expect(component.length).toBe(1);
 });

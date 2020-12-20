@@ -1,17 +1,18 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import StockGlance from "./StockGlance";
-import Input from "./Input";
+import Input from "../Input";
 // import SearchResults from "./SearchResults";
-import Button from "./Button";
+import Button from "../Button";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 const StockCard = ({ stockDay }) => {
   // console.log("stockDay", stockDay);
   return (
     <div data-test="component-stockCard" className="card-border display">
+      <p>Search for a company:</p>
       <Input />
-      {/* <SearchResults /> */}
       {Object.keys(stockDay).length > 0 ? (
         <>
           <StockGlance data-test="component-stockGlance" />
@@ -20,6 +21,10 @@ const StockCard = ({ stockDay }) => {
       ) : null}
     </div>
   );
+};
+
+StockCard.propTypes = {
+  stockDay: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {

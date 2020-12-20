@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { connect } from "react-redux";
-import { formatter } from "../helpers/helpers";
-import { fetchStockDayPerf } from "../actions";
+import { formatter } from "../../helpers/helpers";
+import { fetchStockDayPerf } from "../../actions";
 
 const isNeg = RegExp(/^-/);
 
@@ -13,7 +13,10 @@ const StockGlance = ({ stockDay, stockOverview }) => {
         {stockDay["01. symbol"]}
       </h4>
       <h5 data-test="element-stock-name" className="section-subhead">
-        {stockOverview["Name"]}
+        {/* conditionally render company name if the overview symbol matches the stockDay symbol. Sometimes it displays the wrong company name b/c the API calls were exhausted before it could do BOTH of the calls required here. */}
+        {stockOverview["Symbol"] === stockDay["01. symbol"]
+          ? stockOverview["Name"]
+          : ""}
       </h5>
       <p className="section-subhead">
         {formatter.format(stockDay["05. price"])}

@@ -1,14 +1,18 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
-import useStocks from "../hooks/useStocks";
+import useStocks from "../../hooks/useStocks";
 import { connect } from "react-redux";
-import { fetchStockDayPerf, fetchStockOverview } from "../actions";
+import { fetchStockDayPerf, fetchStockOverview } from "../../actions";
 
-const SearchResults = ({ term, fetchStockDayPerf, fetchStockOverview }) => {
+export const UnconnectedSearchResults = ({
+  term,
+  fetchStockDayPerf,
+  fetchStockOverview,
+}) => {
   const [debouncedTerm, setDebouncedTerm] = useState(term);
   const [stockData, setStockData, stockSearch] = useStocks([]);
 
-  console.log("stockData:", stockData);
+  // console.log("stockData:", stockData);
 
   useEffect(() => {
     if (stockData !== undefined && stockData["Global Quote"]) {
@@ -52,7 +56,7 @@ const SearchResults = ({ term, fetchStockDayPerf, fetchStockOverview }) => {
   };
 
   return (
-    <>
+    <React.Fragment>
       {stockData["bestMatches"] ? (
         <div
           className="search-results ui divided list"
@@ -62,21 +66,21 @@ const SearchResults = ({ term, fetchStockDayPerf, fetchStockOverview }) => {
           {renderStockList()}
         </div>
       ) : null}
-    </>
+    </React.Fragment>
   );
 };
 
-const mapStateToProps = (state) => {
-  // console.log("stockResults state:", state);
-  return {
-    stockDay: state.stockDay,
-    stockOverview: state.stockOverview,
-  };
-};
+// const mapStateToProps = (state) => {
+//   // console.log("stockResults state:", state);
+//   return {
+//     stockDay: state.stockDay,
+//     stockOverview: state.stockOverview,
+//   };
+// };
 
-export default connect(mapStateToProps, {
+export default connect(null, {
   fetchStockDayPerf,
   fetchStockOverview,
-})(SearchResults);
+})(UnconnectedSearchResults);
 
 // export default SearchResults;
