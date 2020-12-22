@@ -1,7 +1,7 @@
 import React from "react";
 
 const WatchlistsShow = () => {
-  return <div>Watchlists Show</div>;
+  return <div data-test="component-watchlists-show">Watchlists Show</div>;
 };
 
 export default WatchlistsShow;

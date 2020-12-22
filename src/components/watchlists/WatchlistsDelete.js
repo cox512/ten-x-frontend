@@ -1,7 +1,7 @@
 import React from "react";
 
 const WatchlistsDelete = () => {
-  return <div>Watchlists Delete</div>;
+  return <div data-test="component-watchlists-delete">Watchlists Delete</div>;
 };
 
 export default WatchlistsDelete;
