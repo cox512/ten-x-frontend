@@ -6,6 +6,7 @@ import useStocks from "../hooks/useStocks";
 
 import StockCard from "./stockDisplay/StockCard";
 import Header from "./Header";
+import Login from "./Login";
 
 import UserCreate from "./user/UserCreate";
 import UserDelete from "./user/UserDelete";
@@ -26,6 +27,7 @@ const App = ({ fetchStockDayPerf }) => {
         <div>
           <Header />
           <Route path="/" component={StockCard} />
+          <Route path="/login" component={Login} />
 
           <Route path="/user/UserCreate" component={UserCreate} />
           <Route path="/user/UserDelete" component={UserDelete} />
