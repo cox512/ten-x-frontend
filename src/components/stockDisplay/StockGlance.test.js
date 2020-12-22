@@ -1,6 +1,6 @@
 import React from "react";
-import StockGlance from "./components/StockGlance";
-import { findByTestAttr, storeFactory } from "../test/testUtils";
+import StockGlance from "./StockGlance";
+import { findByTestAttr, storeFactory } from "../../../test/testUtils";
 import { shallow } from "enzyme";
 
 const setup = (initialState = {}) => {
@@ -44,6 +44,7 @@ describe("stockDay and stockOverview have data", () => {
     const initialState = {
       stockDay: { "01. symbol": "F" },
       stockOverview: { Name: "Ford Motor Company" },
+      stockOverview: { Symbol: "F" },
     };
     wrapper = setup(initialState);
   });

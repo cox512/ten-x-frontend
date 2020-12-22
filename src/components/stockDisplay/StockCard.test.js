@@ -1,7 +1,11 @@
 import React from "react";
-import { findByTestAttr, storeFactory, checkProps } from "../test/testUtils";
+import {
+  findByTestAttr,
+  storeFactory,
+  checkProps,
+} from "../../../test/testUtils";
 import { shallow } from "enzyme";
-import StockCard from "./components/StockCard";
+import StockCard from "./StockCard";
 
 // const defaultProps = {
 //   stockDay: [{ "01. symbol": "F" }],
