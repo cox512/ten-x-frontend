@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
 import StockGlance from "./StockGlance";
 import Input from "../Input";
 // import SearchResults from "./SearchResults";
 import Button from "../Button";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
 const StockCard = ({ stockDay }) => {
   // console.log("stockDay", stockDay);

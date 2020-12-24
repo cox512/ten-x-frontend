@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "./components/Button";
-import { findByTestAttr } from "../test/testUtils";
+import Button from "./Button";
+import { findByTestAttr } from "../../test/testUtils";
 import { shallow } from "enzyme";
 
 const setup = (props = { text: "More Info" }) => {

@@ -14,33 +14,20 @@ const StockGlance = ({ stockDay, stockOverview }) => {
       </h4>
       <h5 data-test="element-stock-name" className="section-subhead">
         {/* conditionally render company name if the overview symbol matches the stockDay symbol. Sometimes it displays the wrong company name b/c the API calls were exhausted before it could do BOTH of the calls required here. */}
-        {stockOverview["Symbol"] === stockDay["01. symbol"]
-          ? stockOverview["Name"]
-          : ""}
+        {/* eslint-disable-next-line dot-notation */}
+        {stockOverview["Symbol"] === stockDay["01. symbol"] ? stockOverview["Name"] : ""}
       </h5>
-      <p className="section-subhead">
-        {formatter.format(stockDay["05. price"])}
-      </p>
+      <p className="section-subhead">{formatter.format(stockDay["05. price"])}</p>
 
       <div className="inline-row">
         <p
           className="price-change"
-          style={
-            isNeg.test(stockDay["09. change"])
-              ? { color: "red" }
-              : { color: "green" }
-          }
-        >
+          style={isNeg.test(stockDay["09. change"]) ? { color: "red" } : { color: "green" }}>
           {formatter.format(stockDay["09. change"])}
         </p>
         <p
           className="price-change"
-          style={
-            isNeg.test(stockDay["09. change"])
-              ? { color: "red" }
-              : { color: "green" }
-          }
-        >
+          style={isNeg.test(stockDay["09. change"]) ? { color: "red" } : { color: "green" }}>
           {parseFloat(stockDay["10. change percent"]).toFixed(2)}%
         </p>
       </div>

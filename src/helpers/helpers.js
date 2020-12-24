@@ -3,6 +3,4 @@ export const formatter = new Intl.NumberFormat("en-US", {
   currency: "USD",
 });
 
-export const priceChangeColor = Array.from(
-  document.querySelectorAll(".price-change")
-);
+export const priceChangeColor = Array.from(document.querySelectorAll(".price-change"));
