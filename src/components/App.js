@@ -1,13 +1,47 @@
-import React, { useEffect } from "react";
+/* eslint-disable arrow-body-style */
+import React from "react";
+// import { connect } from "react-redux";
+import { BrowserRouter, Route } from "react-router-dom";
+
+// import useStocks from "../hooks/useStocks";
+
 import StockCard from "./stockDisplay/StockCard";
-import useStocks from "../hooks/useStocks";
-import { connect } from "react-redux";
+import Header from "./Header";
+import Login from "./Login";
+
+import UserCreate from "./user/UserCreate";
+import UserDelete from "./user/UserDelete";
+import UserEdit from "./user/UserEdit";
+import UserShow from "./user/UserShow";
+
+import WatchlistsCreate from "./watchlists/WatchlistsCreate";
+import WatchlistsDelete from "./watchlists/WatchlistsDelete";
+import WatchlistsEdit from "./watchlists/WatchlistsEdit";
+import WatchlistsList from "./watchlists/WatchlistsList";
+import WatchlistsShow from "./watchlists/WatchlistsShow";
 
 // eslint-disable-next-line react/prop-types
-const App = ({ fetchStockDayPerf }) => {
+const App = () => {
   return (
     <div data-test="component-app">
-      <StockCard />
+      <BrowserRouter>
+        <div>
+          <Header />
+          <Route path="/" component={StockCard} />
+          <Route path="/login" component={Login} />
+
+          <Route path="/user/new" component={UserCreate} />
+          <Route path="/user/delete/:id" component={UserDelete} />
+          <Route path="/user/edit/:id" component={UserEdit} />
+          <Route path="/user/:id" component={UserShow} />
+
+          <Route path="/watchlists/WatchlistsCreate" component={WatchlistsCreate} />
+          <Route path="/watchlists/WatchlistsDelete" component={WatchlistsDelete} />
+          <Route path="/watchlists/WatchlistsEdit/:id" component={WatchlistsEdit} />
+          <Route path="/watchlists/WatchlistsList" component={WatchlistsList} />
+          <Route path="/watchlists/WatchlistsShow" component={WatchlistsShow} />
+        </div>
+      </BrowserRouter>
     </div>
   );
 };

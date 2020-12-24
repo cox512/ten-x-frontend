@@ -1,11 +1,9 @@
 import React from "react";
 
-import { findByTestAttr, storeFactory } from "../test/testUtils";
+import { findByTestAttr, storeFactory } from "../../../test/testUtils";
 import { shallow } from "enzyme";
 
-import SearchResults, {
-  UnconnectedSearchResults,
-} from "./components/SearchResults";
+import SearchResults, { UnconnectedSearchResults } from "./SearchResults";
 
 const setup = (initialState) => {
   const store = storeFactory(initialState);
