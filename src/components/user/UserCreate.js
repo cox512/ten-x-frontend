@@ -17,6 +17,7 @@ const UserCreate = ({ handleSubmit, createUser }) => {
       );
     }
   };
+
   const renderInput = useCallback(({ input, label, type, meta }) => {
     const className = `field ${meta.error && meta.touched ? "error" : ""}`;
     return (

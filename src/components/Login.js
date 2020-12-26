@@ -1,9 +1,21 @@
 /* eslint-disable no-console */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Field, reduxForm } from "redux-form";
+import { connect } from "react-redux";
 
-const Login = ({ handleSubmit }) => {
+import { signIn, fetchUsers } from "../actions";
+
+// eslint-disable-next-line no-shadow
+const Login = ({ handleSubmit, fetchUsers, users, signIn }) => {
+  // eslint-disable-next-line react/destructuring-assignment
+
+  useEffect(() => {
+    // Gathering all the users on load
+    // This can be taken out once the client is connected to the server. This logic will be perrormed server-side.
+    fetchUsers();
+  }, []);
+
   // eslint-disable-next-line consistent-return
   const renderError = ({ error, touched }) => {
     if (error && touched) {
@@ -14,6 +26,7 @@ const Login = ({ handleSubmit }) => {
       );
     }
   };
+
   const renderInput = useCallback(({ input, label, type, meta }) => {
     const className = `field ${meta.error && meta.touched ? "error" : ""}`;
     return (
@@ -26,7 +39,16 @@ const Login = ({ handleSubmit }) => {
   }, []);
 
   const onSubmit = (formValues) => {
-    console.log(formValues);
+    // Compare login details with the list of created users and look for a match
+    const userSigningIn = users.filter(
+      (user) => user.username === formValues.username && user.password === formValues.password
+    );
+    // Assign the matching user's id to UserId
+    const userId = userSigningIn[0].id;
+    if (!userSigningIn.length > 0) {
+      console.log("Not a valid user");
+    }
+    signIn(userId);
   };
 
   return (
@@ -51,4 +73,13 @@ const validate = (formValues) => {
   return errors;
 };
 
-export default reduxForm({ form: "loginForm", validate })(Login);
+// eslint-disable-next-line consistent-return
+const mapStateToProps = (state) => {
+  return {
+    users: Object.values(state.user),
+  };
+};
+
+const formWrapped = reduxForm({ form: "loginForm", validate })(Login);
+
+export default connect(mapStateToProps, { signIn, fetchUsers })(formWrapped);

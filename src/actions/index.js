@@ -1,6 +1,17 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-console */
-import { STOCK_DAY_PERFORMANCE, STOCK_OVERVIEW, SIGN_IN, SIGN_OUT } from "./types";
+import {
+  STOCK_DAY_PERFORMANCE,
+  STOCK_OVERVIEW,
+  SIGN_IN,
+  SIGN_OUT,
+  CREATE_USER,
+  FETCH_USERS,
+  FETCH_USER,
+  DELETE_USER,
+  EDIT_USER,
+} from "./types";
+
 import users from "../APIs/users";
 
 export const actionTypes = {
@@ -8,14 +19,20 @@ export const actionTypes = {
   STOCK_OVERVIEW,
   SIGN_IN,
   SIGN_OUT,
+  CREATE_USER,
+  FETCH_USERS,
+  FETCH_USER,
+  DELETE_USER,
+  EDIT_USER,
 };
 
-export const signIn = () => {
-  console.log("signIn runs");
+export const signIn = (userId) => {
+  console.log(userId);
   // Change the payload back to UserId and pass userId into params
+
   return {
     type: SIGN_IN,
-    payload: true,
+    payload: userId,
   };
 };
 
@@ -43,5 +60,32 @@ export const fetchStockOverview = (stock) => {
 };
 
 export const createUser = (formValues) => async (dispatch) => {
-  users.post("/users", formValues);
+  console.log("createUser");
+  const response = await users.post("/users", formValues);
+
+  dispatch({ type: CREATE_USER, payload: response.data });
+};
+
+export const fetchUsers = () => async (dispatch) => {
+  const response = await users.get("/users");
+
+  dispatch({ type: FETCH_USERS, payload: response.data });
+};
+
+export const fetchUser = (id) => async (dispatch) => {
+  const response = await users.get(`/users/${id}`);
+
+  dispatch({ type: FETCH_USER, payload: response.data });
+};
+
+export const editUser = (id, formValues) => async (dispatch) => {
+  const response = await users.put(`users/${id}`, formValues);
+
+  dispatch({ type: EDIT_USER, payload: response.data });
+};
+
+export const deleteUser = (id) => async (dispatch) => {
+  await users.delete(`users/${id}`);
+
+  dispatch({ type: DELETE_USER, payload: id });
 };

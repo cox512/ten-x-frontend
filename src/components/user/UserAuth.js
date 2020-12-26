@@ -2,10 +2,13 @@
 /* eslint-disable no-console */
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { signIn, signOut } from "../../actions";
 // import Button from "../Button";
 
-const UserAuth = () => {
+const UserAuth = ({ isSignedIn }) => {
+  // eslint-disable-next-line react/destructuring-assignment
+
   // const onAuthChange = (isSignedIn) => {
   //   if (isSignedIn) {
   //     signIn(auth.currentUser); //action creator
@@ -15,18 +18,16 @@ const UserAuth = () => {
   // };
 
   const onSignInClick = () => {
-    // console.log("sign in click");
+    // take to the login path to have the login screen revealed
 
     signIn();
   };
 
   const onSignOutClick = () => {
-    // console.log("sign out click");
     signOut();
   };
 
-  const renderAuthButton = (isSignedIn) => {
-    // console.log(isSignedIn);
+  const renderAuthButton = () => {
     if (isSignedIn === null) {
       return null;
     } else if (isSignedIn) {
@@ -37,9 +38,9 @@ const UserAuth = () => {
       );
     } else {
       return (
-        <button type="button" onClick={onSignInClick}>
+        <Link to="/login" className="ui button primary">
           Log In
-        </button>
+        </Link>
       );
     }
   };
@@ -48,7 +49,6 @@ const UserAuth = () => {
 };
 
 const mapStateToProps = (state) => {
-  // console.log(state.auth.isSignedIn);
   return { isSignedIn: state.auth.isSignedIn };
 };
 export default connect(mapStateToProps, { signIn, signOut })(UserAuth);
