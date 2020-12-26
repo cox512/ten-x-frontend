@@ -2,14 +2,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useCallback, useEffect } from "react";
 import { Field, reduxForm } from "redux-form";
+// import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { signIn, fetchUsers } from "../actions";
+import { signIn, fetchUsers, fetchUser } from "../actions";
 
 // eslint-disable-next-line no-shadow
-const Login = ({ handleSubmit, fetchUsers, users, signIn }) => {
+const Login = ({ handleSubmit, fetchUser, fetchUsers, users, signIn }) => {
   // eslint-disable-next-line react/destructuring-assignment
-
   useEffect(() => {
     // Gathering all the users on load
     // This can be taken out once the client is connected to the server. This logic will be perrormed server-side.
@@ -40,24 +40,28 @@ const Login = ({ handleSubmit, fetchUsers, users, signIn }) => {
 
   const onSubmit = (formValues) => {
     // Compare login details with the list of created users and look for a match
-    const userSigningIn = users.filter(
+    // This can be done on the back end once it's all connected
+    const foundUser = users.find(
       (user) => user.username === formValues.username && user.password === formValues.password
     );
-    // Assign the matching user's id to UserId
-    const userId = userSigningIn[0].id;
-    if (!userSigningIn.length > 0) {
+
+    if (!foundUser) {
       console.log("Not a valid user");
+    } else {
+      signIn(foundUser.id);
+      fetchUser(foundUser.id);
     }
-    signIn(userId);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="ui form error">
       <Field name="username" type="text" component={renderInput} label="Username" />
       <Field name="password" type="password" component={renderInput} label="Password" />
+      {/* <Link to="/"> */}
       <button type="submit" className="ui button primary">
         Submit
       </button>
+      {/* </Link> */}
     </form>
   );
 };
@@ -82,4 +86,4 @@ const mapStateToProps = (state) => {
 
 const formWrapped = reduxForm({ form: "loginForm", validate })(Login);
 
-export default connect(mapStateToProps, { signIn, fetchUsers })(formWrapped);
+export default connect(mapStateToProps, { signIn, fetchUsers, fetchUser })(formWrapped);

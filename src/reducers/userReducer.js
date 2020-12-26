@@ -8,11 +8,10 @@ export default (state = {}, action) => {
       return { ...state, [action.payload.id]: action.payload };
 
     case FETCH_USERS:
-      console.log("fetch_users");
       return { ...state, ..._.mapKeys(action.payload, "id") };
 
     case FETCH_USER:
-      return { ...state, [action.payload.id]: action.payload };
+      return { profile: action.payload };
 
     case EDIT_USER:
       return { ...state, [action.payload.id]: action.payload };

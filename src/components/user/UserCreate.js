@@ -30,7 +30,6 @@ const UserCreate = ({ handleSubmit, createUser }) => {
   }, []);
 
   const onSubmit = (formValues) => {
-    console.log("onSubmit");
     createUser(formValues);
   };
 
@@ -42,7 +41,7 @@ const UserCreate = ({ handleSubmit, createUser }) => {
       <Field name="fname" type="text" component={renderInput} label="First Name" />
       <Field name="lname" type="text" component={renderInput} label="Last Name" />
       <Field name="username" type="text" component={renderInput} label="Username" />
-      <Field name="email" type="text" component={renderInput} label="email" />
+      <Field name="email" type="text" component={renderInput} label="E-mail" />
       <Field name="password" type="password" component={renderInput} label="Password" />
       <button type="submit" className="ui button primary">
         Create Account

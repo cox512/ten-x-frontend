@@ -4,37 +4,19 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { signIn, signOut } from "../../actions";
-// import Button from "../Button";
 
-const UserAuth = ({ isSignedIn }) => {
-  // eslint-disable-next-line react/destructuring-assignment
-
-  // const onAuthChange = (isSignedIn) => {
-  //   if (isSignedIn) {
-  //     signIn(auth.currentUser); //action creator
-  //   } else {
-  //     signOut(); //action creator
-  //   }
-  // };
-
-  const onSignInClick = () => {
-    // take to the login path to have the login screen revealed
-
-    signIn();
-  };
-
+// eslint-disable-next-line no-shadow
+const UserAuth = ({ isSignedIn, signOut }) => {
   const onSignOutClick = () => {
     signOut();
   };
 
   const renderAuthButton = () => {
-    if (isSignedIn === null) {
-      return null;
-    } else if (isSignedIn) {
+    if (isSignedIn) {
       return (
-        <button type="button" onClick={onSignOutClick}>
+        <Link to="/" className="ui button primary" onClick={onSignOutClick}>
           Log Out
-        </button>
+        </Link>
       );
     } else {
       return (

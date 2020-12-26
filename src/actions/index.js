@@ -27,9 +27,7 @@ export const actionTypes = {
 };
 
 export const signIn = (userId) => {
-  console.log(userId);
-  // Change the payload back to UserId and pass userId into params
-
+  console.log("Signed In UserId:", userId);
   return {
     type: SIGN_IN,
     payload: userId,
@@ -73,6 +71,7 @@ export const fetchUsers = () => async (dispatch) => {
 };
 
 export const fetchUser = (id) => async (dispatch) => {
+  console.log("fetchUser id:", id);
   const response = await users.get(`/users/${id}`);
 
   dispatch({ type: FETCH_USER, payload: response.data });
