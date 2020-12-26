@@ -14,7 +14,7 @@ export default (state = {}, action) => {
       return { profile: action.payload };
 
     case EDIT_USER:
-      return { ...state, [action.payload.id]: action.payload };
+      return { ...state, profile: action.payload };
 
     case DELETE_USER:
       return _.omit(state, action.payload);

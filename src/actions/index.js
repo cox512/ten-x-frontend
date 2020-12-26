@@ -71,13 +71,14 @@ export const fetchUsers = () => async (dispatch) => {
 };
 
 export const fetchUser = (id) => async (dispatch) => {
-  console.log("fetchUser id:", id);
   const response = await users.get(`/users/${id}`);
 
   dispatch({ type: FETCH_USER, payload: response.data });
 };
 
 export const editUser = (id, formValues) => async (dispatch) => {
+  console.log("editUser info:", id, formValues);
+
   const response = await users.put(`users/${id}`, formValues);
 
   dispatch({ type: EDIT_USER, payload: response.data });

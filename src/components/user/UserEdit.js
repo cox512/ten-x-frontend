@@ -1,10 +1,11 @@
+/* eslint-disable no-shadow */
 /* eslint-disable consistent-return */
 import React, { useCallback } from "react";
-import { Field, reduxForm, formValueSelector } from "redux-form";
+import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { editUser } from "../../actions";
 
-const UserEdit = ({ handleSubmit, userId }) => {
+const UserEdit = ({ handleSubmit, editUser }) => {
   const renderError = ({ error, touched }) => {
     if (error && touched) {
       return (
@@ -15,7 +16,7 @@ const UserEdit = ({ handleSubmit, userId }) => {
     }
   };
   const onSubmit = (formValues) => {
-    editUser(userId, formValues);
+    editUser(formValues.id, formValues);
   };
 
   const renderInput = useCallback(({ input, label, type, meta }) => {
@@ -74,7 +75,8 @@ const mapStateToProps = (state) => {
       lname: state.user.profile.lname,
       username: state.user.profile.username,
       email: state.user.profile.email,
-      userId: state.user.profile.id,
+      id: state.user.profile.id,
+      password: state.user.profile.password,
     },
   };
 };
