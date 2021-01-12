@@ -1,85 +1,38 @@
 /* eslint-disable no-shadow */
 /* eslint-disable consistent-return */
-import React, { useCallback } from "react";
-import { Field, reduxForm } from "redux-form";
+import React, { useEffect } from "react";
+import _ from "lodash";
 import { connect } from "react-redux";
-import { editUser } from "../../actions";
+import { fetchUser, editUser } from "../../actions";
+import UserForm from "./UserForm";
 
-const UserEdit = ({ handleSubmit, editUser }) => {
-  const renderError = ({ error, touched }) => {
-    if (error && touched) {
-      return (
-        <div className="ui error message">
-          <div>{error}</div>
-        </div>
-      );
-    }
-  };
-  const onSubmit = (formValues) => {
-    editUser(formValues.id, formValues);
-  };
-
-  const renderInput = useCallback(({ input, label, type, meta }) => {
-    const className = `field ${meta.error && meta.touched ? "error" : ""}`;
-
-    return (
-      <div className={className}>
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label>{label}</label>
-        <input type={type} {...input} autoComplete="off" />
-        {renderError(meta)}
-      </div>
-    );
+const UserEdit = ({ editUser, fetchUser, currentUserId, currentUser }) => {
+  useEffect(() => {
+    fetchUser(currentUserId);
   }, []);
+
+  const onSubmit = (formValues) => {
+    editUser(currentUserId, formValues);
+    // console.log(formValues);
+  };
 
   return (
     <div data-test="component-user-edit">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="ui form error"
-        data-test="component-user-create">
-        <Field name="fname" type="text" component={renderInput} label="First Name" />
-        <Field name="lname" type="text" component={renderInput} label="Last Name" />
-        <Field name="username" type="text" component={renderInput} label="Username" />
-        <Field name="email" type="text" component={renderInput} label="Email" />
-        <button type="submit" className="ui button primary">
-          Update Profile
-        </button>
-      </form>
+      <h3>Edit Your Profile</h3>
+      <UserForm
+        initialValues={_.pick(currentUser, "fname", "lname", "username", "email", "password")}
+        submitUser={onSubmit}
+        buttonText="Edit Profile"
+      />
     </div>
   );
 };
 
-// You could write this function in a js helper file and import it both here and createUser. Right now, createUser is also validating the password, but we can have that be a seperate validation function that is written in the createUSer component.
-const validate = (formValues) => {
-  const errors = {};
-  if (!formValues.lname) {
-    errors.lname = "You must enter a last name";
-  }
-  if (!formValues.fname) {
-    errors.fname = "You must enter a first name";
-  }
-  if (!formValues.username) {
-    errors.username = "You must enter a username";
-  }
-  if (!formValues.email) {
-    errors.email = "You must enter a email";
-  }
-  return errors;
-};
-
 const mapStateToProps = (state) => {
   return {
-    initialValues: {
-      fname: state.user.profile.fname,
-      lname: state.user.profile.lname,
-      username: state.user.profile.username,
-      email: state.user.profile.email,
-      id: state.user.profile.id,
-      password: state.user.profile.password,
-    },
+    currentUserId: state.auth.userId,
+    currentUser: state.user.profile,
   };
 };
-const formWrapped = reduxForm({ form: "editForm", enableReinitialize: true, validate })(UserEdit);
 
-export default connect(mapStateToProps, { editUser })(formWrapped);
+export default connect(mapStateToProps, { editUser, fetchUser })(UserEdit);
