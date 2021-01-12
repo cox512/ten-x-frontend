@@ -1,12 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-console */
-import React, { useCallback } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
-import { createUser } from "../../actions";
+import { createUser, fetchUsers, fetchUser } from "../../actions";
 
 // eslint-disable-next-line no-shadow
-const UserCreate = ({ handleSubmit, createUser }) => {
+const UserCreate = ({ handleSubmit, createUser, isSignedIn }) => {
+  const [userCreated, setUserCreated] = useState(false);
+
+  useEffect(() => {
+    // I need the ID of the user that was just created.
+  }, [userCreated]);
   // eslint-disable-next-line consistent-return
   const renderError = ({ error, touched }) => {
     if (error && touched) {
@@ -29,8 +34,17 @@ const UserCreate = ({ handleSubmit, createUser }) => {
     );
   }, []);
 
-  const onSubmit = (formValues) => {
-    createUser(formValues);
+  const onSubmit = async (formValues) => {
+    const response = await createUser(formValues);
+
+    console.log("response:", response);
+    console.log(isSignedIn);
+    // Do we want an isSignedIn state?
+    // If user is successfully created
+    //    Log User in
+    //    Return User to homescreen
+    // Else, if there was an error
+    //    Let the user know
   };
 
   return (
@@ -70,6 +84,10 @@ const validate = (formValues) => {
   return errors;
 };
 
+const mapStateToProps = (state, ownProps) => {
+  // console.log("ownProps:", ownProps);
+  return { users: Object.values(state.user), isSignedIn: state.auth.isSignedIn };
+};
 const formWrapped = reduxForm({ form: "createUserForm", validate })(UserCreate);
 
-export default connect(null, { createUser })(formWrapped);
+export default connect(mapStateToProps, { createUser, fetchUsers })(formWrapped);

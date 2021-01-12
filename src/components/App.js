@@ -1,7 +1,8 @@
 /* eslint-disable arrow-body-style */
 import React from "react";
 // import { connect } from "react-redux";
-import { BrowserRouter, Route } from "react-router-dom";
+import { Route, Router } from "react-router-dom";
+import history from "../history";
 
 // import useStocks from "../hooks/useStocks";
 
@@ -24,16 +25,17 @@ import WatchlistsShow from "./watchlists/WatchlistsShow";
 const App = () => {
   return (
     <div data-test="component-app">
-      <BrowserRouter>
+      <Router history={history}>
         <div>
           <Header />
+          {}
           <Route path="/" component={StockCard} />
           <Route path="/login" component={Login} />
 
-          <Route path="/user/new" component={UserCreate} />
+          <Route path="/user/new" exact component={UserCreate} />
           <Route path="/user/delete/:id" component={UserDelete} />
           <Route path="/user/edit/:id" component={UserEdit} />
-          <Route path="/user/:id" component={UserShow} />
+          <Route path="/user/show/:id" component={UserShow} />
 
           <Route path="/watchlists/WatchlistsCreate" component={WatchlistsCreate} />
           <Route path="/watchlists/WatchlistsDelete" component={WatchlistsDelete} />
@@ -41,7 +43,7 @@ const App = () => {
           <Route path="/watchlists/WatchlistsList" component={WatchlistsList} />
           <Route path="/watchlists/WatchlistsShow" component={WatchlistsShow} />
         </div>
-      </BrowserRouter>
+      </Router>
     </div>
   );
 };

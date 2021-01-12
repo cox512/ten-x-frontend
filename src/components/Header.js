@@ -5,30 +5,35 @@ import { Link } from "react-router-dom";
 // import Button from "./Button";
 import UserAuth from "./user/UserAuth";
 
-const Header = ({ currentUser }) => {
-  console.log(currentUser);
+const Header = ({ currentUserId, currentUserName }) => {
+  // console.log(currentUserId);
   const renderAcctButton = () => {
-    if (currentUser) {
+    if (currentUserId) {
       return (
-        <Link to={`/user/${currentUser}`} type="button" className="ui button primary">
-          Account
+        <Link to={`/user/show/${currentUserId}`} type="button" className="ui button primary">
+          {currentUserName}
         </Link>
       );
     }
     return null;
   };
+
   return (
     <div className="ui secondary pointing menu" data-test="component-header">
       TEN-X
       <div className="right menu">
         <UserAuth />
-        {renderAcctButton()}
+        {currentUserId ? renderAcctButton() : null}
       </div>
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  return { currentUser: state.auth.userId };
+  return {
+    currentUserId: state.auth.userId,
+    // Getting an undefined error here b/c there is no currentUser on loading. Should we have a value for all of these to start with?
+    currentUserName: state.user.profile.fname,
+  };
 };
 export default connect(mapStateToProps)(Header);

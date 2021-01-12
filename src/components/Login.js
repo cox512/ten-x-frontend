@@ -2,9 +2,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useCallback, useEffect } from "react";
 import { Field, reduxForm } from "redux-form";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-
 import { signIn, fetchUsers, fetchUser } from "../actions";
 
 // eslint-disable-next-line no-shadow
@@ -12,7 +11,7 @@ const Login = ({ handleSubmit, fetchUser, fetchUsers, users, signIn }) => {
   // eslint-disable-next-line react/destructuring-assignment
   useEffect(() => {
     // Gathering all the users on load
-    // This can be taken out once the client is connected to the server. This logic will be perrormed server-side.
+    // This can be taken out once the client is connected to the server. This logic will be performed server-side.
     fetchUsers();
   }, []);
 
@@ -57,11 +56,19 @@ const Login = ({ handleSubmit, fetchUser, fetchUsers, users, signIn }) => {
     <form onSubmit={handleSubmit(onSubmit)} className="ui form error">
       <Field name="username" type="text" component={renderInput} label="Username" />
       <Field name="password" type="password" component={renderInput} label="Password" />
-      {/* <Link to="/"> */}
-      <button type="submit" className="ui button primary">
-        Submit
-      </button>
-      {/* </Link> */}
+      <div className="login__submission">
+        <button type="submit" className="ui button primary">
+          Submit
+        </button>
+
+        <p className="login__submission">
+          <i>
+            {/* eslint-disable-next-line react/no-unescaped-entities */}
+            Don't have an account?
+            <Link to="/user/new"> Create one.</Link>
+          </i>
+        </p>
+      </div>
     </form>
   );
 };

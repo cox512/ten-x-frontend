@@ -3,12 +3,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { signIn, signOut } from "../../actions";
+import { signOut, clearUser } from "../../actions";
 
 // eslint-disable-next-line no-shadow
-const UserAuth = ({ isSignedIn, signOut }) => {
+const UserAuth = ({ isSignedIn, signOut, clearUser }) => {
   const onSignOutClick = () => {
     signOut();
+    clearUser();
   };
 
   const renderAuthButton = () => {
@@ -33,4 +34,4 @@ const UserAuth = ({ isSignedIn, signOut }) => {
 const mapStateToProps = (state) => {
   return { isSignedIn: state.auth.isSignedIn };
 };
-export default connect(mapStateToProps, { signIn, signOut })(UserAuth);
+export default connect(mapStateToProps, { signOut, clearUser })(UserAuth);
