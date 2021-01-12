@@ -1,4 +1,5 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable react/button-has-type */
+/* eslint-disable arrow-body-style */
 import React from "react";
 
 const Button = ({ text }) => {

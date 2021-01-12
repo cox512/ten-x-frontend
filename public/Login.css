@@ -1,0 +1,5 @@
+.login__submission {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

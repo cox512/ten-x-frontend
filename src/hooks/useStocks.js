@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-shadow */
 import { useState } from "react";
 import alphaVantage from "../APIs/alphaVantage";
 
@@ -7,15 +9,18 @@ const useStocks = (functionCall, term) => {
 
   const KEY = [process.env.REACT_APP_API_KEY1, process.env.REACT_APP_API_KEY2];
 
+  // May not need to call functionCall and term again b/c they are in the useStocks def
   const stockSearch = async (functionCall, termKey, term) => {
-    let random = Math.floor(Math.random() * 2);
+    const random = Math.floor(Math.random() * 2);
     const key = KEY[random];
-    console.log(key);
+    // console.log(key);
     const response = await alphaVantage.get(
       `/query?function=${functionCall}&${termKey}=${term}&apikey=${key}`
     );
 
+    // eslint-disable-next-line dot-notation
     if (response.data["Note"]) {
+      // eslint-disable-next-line no-alert
       alert(
         "This API only allows 5-10 calls per minute. Try typing your search faster to save on calls. Otherwise, just hang tight and try your search again in a minute."
       );
