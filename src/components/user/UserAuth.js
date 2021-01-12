@@ -2,44 +2,28 @@
 /* eslint-disable no-console */
 import React from "react";
 import { connect } from "react-redux";
-import { signIn, signOut } from "../../actions";
-// import Button from "../Button";
+import { Link } from "react-router-dom";
+import { signOut, clearUser } from "../../actions";
 
-const UserAuth = () => {
-  // const onAuthChange = (isSignedIn) => {
-  //   if (isSignedIn) {
-  //     signIn(auth.currentUser); //action creator
-  //   } else {
-  //     signOut(); //action creator
-  //   }
-  // };
-
-  const onSignInClick = () => {
-    // console.log("sign in click");
-
-    signIn();
-  };
-
+// eslint-disable-next-line no-shadow
+const UserAuth = ({ isSignedIn, signOut, clearUser }) => {
   const onSignOutClick = () => {
-    // console.log("sign out click");
     signOut();
+    clearUser();
   };
 
-  const renderAuthButton = (isSignedIn) => {
-    // console.log(isSignedIn);
-    if (isSignedIn === null) {
-      return null;
-    } else if (isSignedIn) {
+  const renderAuthButton = () => {
+    if (isSignedIn) {
       return (
-        <button type="button" onClick={onSignOutClick}>
+        <Link to="/" className="ui button primary" onClick={onSignOutClick}>
           Log Out
-        </button>
+        </Link>
       );
     } else {
       return (
-        <button type="button" onClick={onSignInClick}>
+        <Link to="/login" className="ui button primary">
           Log In
-        </button>
+        </Link>
       );
     }
   };
@@ -48,7 +32,6 @@ const UserAuth = () => {
 };
 
 const mapStateToProps = (state) => {
-  // console.log(state.auth.isSignedIn);
   return { isSignedIn: state.auth.isSignedIn };
 };
-export default connect(mapStateToProps, { signIn, signOut })(UserAuth);
+export default connect(mapStateToProps, { signOut, clearUser })(UserAuth);
