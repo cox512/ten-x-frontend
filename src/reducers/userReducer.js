@@ -37,7 +37,7 @@ export default (state = INITIAL_STATE, action) => {
       return _.omit(state, action.payload);
 
     case CLEAR_USER:
-      return { ...state };
+      return INITIAL_STATE;
 
     default:
       return state;

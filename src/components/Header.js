@@ -1,39 +1,18 @@
-/* eslint-disable no-console */
 import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-// import Button from "./Button";
-import UserAuth from "./user/UserAuth";
 
-const Header = ({ currentUserId, currentUserName }) => {
-  // console.log(currentUserId);
-  const renderAcctButton = () => {
-    if (currentUserId) {
-      return (
-        <Link to={`/user/show/${currentUserId}`} type="button" className="ui button primary">
-          {currentUserName}
-        </Link>
-      );
-    }
-    return null;
-  };
-
+const Header = () => {
   return (
-    <div className="ui secondary pointing menu" data-test="component-header">
-      TEN-X
-      <div className="right menu">
-        <UserAuth />
-        {currentUserId ? renderAcctButton() : null}
+    <header className="header">
+      <div className="header__text-box">
+        <h1 className="heading-primary">
+          <span className="heading-primary--main">
+            It takes <s>money</s> <b>knowledge</b>
+          </span>
+          <span className="headiing-primary--sub"> to make money.</span>
+        </h1>
       </div>
-    </div>
+    </header>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    currentUserId: state.auth.userId,
-    // Getting an undefined error here b/c there is no currentUser on loading. Should we have a value for all of these to start with?
-    currentUserName: state.user.profile.fname,
-  };
-};
-export default connect(mapStateToProps)(Header);
+export default Header;

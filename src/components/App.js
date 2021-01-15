@@ -1,13 +1,11 @@
 /* eslint-disable arrow-body-style */
 import React from "react";
-// import { connect } from "react-redux";
 import { Route, Router } from "react-router-dom";
 import history from "../history";
 
-// import useStocks from "../hooks/useStocks";
-
-import StockCard from "./stockDisplay/StockCard";
 import Header from "./Header";
+import StockCard from "./stockDisplay/StockCard";
+import NavBar from "./NavBar";
 import Login from "./Login";
 
 import UserCreate from "./user/UserCreate";
@@ -27,8 +25,9 @@ const App = () => {
     <div data-test="component-app">
       <Router history={history}>
         <div>
-          <Header />
+          <NavBar />
           {}
+          <Route path="/" component={Header} />
           <Route path="/" component={StockCard} />
           <Route path="/login" component={Login} />
 

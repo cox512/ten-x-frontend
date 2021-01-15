@@ -12,9 +12,7 @@ import { fetchStockDayPerf, fetchStockOverview } from "../../actions";
 export const UnconnectedSearchResults = ({ term, fetchStockDayPerf, fetchStockOverview }) => {
   const [debouncedTerm, setDebouncedTerm] = useState(term);
   const [stockData, setStockData, stockSearch] = useStocks([]);
-
-  // console.log("stockData:", stockData);
-
+  console.log("stock data:", stockData);
   useEffect(() => {
     if (stockData !== undefined && stockData["Global Quote"]) {
       fetchStockDayPerf(stockData["Global Quote"]);
@@ -50,12 +48,12 @@ export const UnconnectedSearchResults = ({ term, fetchStockDayPerf, fetchStockOv
     // eslint-disable-next-line dot-notation
     return stockData["bestMatches"].map((stock) => {
       return (
-        <div className="item" key={stock["1. symbol"]}>
+        <option className="item" key={stock["1. symbol"]}>
           <div className="content" onClick={(e) => onSubmit(e, stock)}>
             {stock["1. symbol"]}
             <div className="right floated content">{stock["2. name"]}</div>
           </div>
-        </div>
+        </option>
       );
     });
   };
@@ -66,7 +64,7 @@ export const UnconnectedSearchResults = ({ term, fetchStockDayPerf, fetchStockOv
       {stockData["bestMatches"] ? (
         <div className="search-results ui divided list" data-test="component-searchResults">
           <h4>Select from the list below</h4>
-          {renderStockList()}
+          <select>{renderStockList()}</select>
         </div>
       ) : null}
     </>

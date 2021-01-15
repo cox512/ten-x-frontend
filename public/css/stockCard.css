@@ -1,7 +1,15 @@
-.card-border {
+.stock__card {
     border: solid 2px black;
-    padding: 4px;
-    margin: 4px;
+    margin: .8rem auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    max-width: 40rem;
+}
+
+.stock__card--heading {
+    font-size: 2rem;
 }
 
 .inline-col {
@@ -13,13 +21,6 @@
 .inline-row {
     display: flex;
     justify-content: space-around; 
-}
-
-.display {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
 }
 
 .section-head {

@@ -50,7 +50,6 @@ export const fetchStockOverview = (stock) => {
 export const createUser = (formValues) => async (dispatch) => {
   const response = await users.post("/users", formValues);
   // Find the proper way to error handle. Is it 'try' and 'catch'?
-  console.log("createUser", response);
   if (response.status === 201) {
     dispatch({ type: CREATE_USER, payload: response.data });
     history.push("/login");
@@ -83,6 +82,7 @@ export const deleteUser = (id) => async (dispatch) => {
   await users.delete(`users/${id}`);
 
   dispatch({ type: DELETE_USER, payload: id });
+  history.push(`/`);
 };
 
 export const clearUser = () => (dispatch) => {
