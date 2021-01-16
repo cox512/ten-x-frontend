@@ -53,7 +53,7 @@ const Login = ({ handleSubmit, fetchUser, fetchUsers, users, signIn }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="ui form error">
+    <form onSubmit={handleSubmit(onSubmit)} className="ui form error display">
       <Field name="username" type="text" component={renderInput} label="Username" />
       <Field name="password" type="password" component={renderInput} label="Password" />
       <div className="login__submission">

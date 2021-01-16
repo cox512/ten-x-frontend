@@ -24,24 +24,22 @@ const App = () => {
   return (
     <div data-test="component-app">
       <Router history={history}>
-        <div>
-          <NavBar />
-          {}
-          <Route path="/" component={Header} />
-          <Route path="/" component={StockCard} />
-          <Route path="/login" component={Login} />
+        <NavBar />
 
-          <Route path="/user/new" exact component={UserCreate} />
-          <Route path="/user/delete/:id" component={UserDelete} />
-          <Route path="/user/edit/:id" component={UserEdit} />
-          <Route path="/user/show/:id" component={UserShow} />
+        <Route path="/" component={Header} />
+        <Route path="/" exact component={StockCard} />
+        <Route path="/login" component={Login} />
 
-          <Route path="/watchlists/WatchlistsCreate" component={WatchlistsCreate} />
-          <Route path="/watchlists/WatchlistsDelete" component={WatchlistsDelete} />
-          <Route path="/watchlists/WatchlistsEdit/:id" component={WatchlistsEdit} />
-          <Route path="/watchlists/WatchlistsList" component={WatchlistsList} />
-          <Route path="/watchlists/WatchlistsShow" component={WatchlistsShow} />
-        </div>
+        <Route path="/user/new" exact component={UserCreate} />
+        <Route path="/user/delete/:id" component={UserDelete} />
+        <Route path="/user/edit/:id" component={UserEdit} />
+        <Route path="/user/show/:id" component={UserShow} />
+
+        <Route path="/watchlists/WatchlistsCreate" component={WatchlistsCreate} />
+        <Route path="/watchlists/WatchlistsDelete" component={WatchlistsDelete} />
+        <Route path="/watchlists/WatchlistsEdit/:id" component={WatchlistsEdit} />
+        <Route path="/watchlists/WatchlistsList" component={WatchlistsList} />
+        <Route path="/watchlists/WatchlistsShow" component={WatchlistsShow} />
       </Router>
     </div>
   );

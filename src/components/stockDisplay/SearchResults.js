@@ -12,14 +12,12 @@ import { fetchStockDayPerf, fetchStockOverview } from "../../actions";
 export const UnconnectedSearchResults = ({ term, fetchStockDayPerf, fetchStockOverview }) => {
   const [debouncedTerm, setDebouncedTerm] = useState(term);
   const [stockData, setStockData, stockSearch] = useStocks([]);
-  console.log("stock data:", stockData);
+
   useEffect(() => {
     if (stockData !== undefined && stockData["Global Quote"]) {
       fetchStockDayPerf(stockData["Global Quote"]);
     }
-    // You may want to use dot notation here if you can.
-    // eslint-disable-next-line dot-notation
-    if (stockData !== undefined && stockData["Description"]) {
+    if (stockData !== undefined && stockData.Description) {
       fetchStockOverview(stockData);
     }
   }, [stockData]);
@@ -44,27 +42,24 @@ export const UnconnectedSearchResults = ({ term, fetchStockDayPerf, fetchStockOv
   };
 
   const renderStockList = () => {
-    // dot notation?
-    // eslint-disable-next-line dot-notation
-    return stockData["bestMatches"].map((stock) => {
+    return stockData.bestMatches.map((stock) => {
       return (
-        <option className="item" key={stock["1. symbol"]}>
+        <div className="item" key={stock["1. symbol"]}>
           <div className="content" onClick={(e) => onSubmit(e, stock)}>
             {stock["1. symbol"]}
             <div className="right floated content">{stock["2. name"]}</div>
           </div>
-        </option>
+        </div>
       );
     });
   };
 
   return (
     <>
-      {/* eslint-disable-next-line dot-notation */}
-      {stockData["bestMatches"] ? (
+      {stockData.bestMatches ? (
         <div className="search-results ui divided list" data-test="component-searchResults">
           <h4>Select from the list below</h4>
-          <select>{renderStockList()}</select>
+          {renderStockList()}
         </div>
       ) : null}
     </>

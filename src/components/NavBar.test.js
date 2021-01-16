@@ -1,6 +1,7 @@
 import React from "react";
-import { findByTestAttr } from "../../test/testUtils";
 import { shallow } from "enzyme";
+
+import { findByTestAttr } from "../../test/testUtils";
 import NavBar from "./NavBar";
 
 const setup = (initialState) => {

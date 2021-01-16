@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-console */
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { fetchUsers } from "../../actions";
@@ -43,9 +43,11 @@ const UserForm = ({ handleSubmit, submitUser, buttonText }) => {
       <Field name="username" type="text" component={renderInput} label="Username" />
       <Field name="email" type="text" component={renderInput} label="E-mail" />
       <Field name="password" type="password" component={renderInput} label="Password" />
-      <button type="submit" className="ui button primary">
-        {buttonText}
-      </button>
+      <div className="user-create__btn">
+        <button type="submit" className="ui button primary">
+          {buttonText}
+        </button>
+      </div>
     </form>
   );
 };

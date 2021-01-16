@@ -16,3 +16,12 @@ body {
     padding: 3rem;
     box-sizing: border-box;
 }
+
+.display {
+    border: solid 2px black;
+    margin: 1rem auto 2rem auto;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    max-width: 40rem !important;
+}

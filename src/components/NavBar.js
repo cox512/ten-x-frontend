@@ -19,13 +19,15 @@ const NavBar = ({ currentUserId, currentUserName }) => {
   };
 
   return (
-    <div className="ui secondary pointing menu" data-test="component-navbar">
-      TEN-X
+    <nav className="ui secondary pointing menu" data-test="component-navbar">
+      <Link to="/" className="nav__logo">
+        TEN-X
+      </Link>
       <div className="right menu">
         <UserAuth />
         {currentUserId ? renderAcctButton() : null}
       </div>
-    </div>
+    </nav>
   );
 };
 

@@ -12,8 +12,8 @@ const UserCreate = ({ createUser }) => {
   };
 
   return (
-    <div>
-      <h3>Create Your Account</h3>
+    <div className="user-create display">
+      <h3 className="user-create__header">Create Your Account</h3>
       <UserForm submitUser={onSubmit} buttonText="Create Profile" />
     </div>
   );

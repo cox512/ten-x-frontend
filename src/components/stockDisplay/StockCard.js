@@ -9,7 +9,7 @@ import Button from "../Button";
 
 const StockCard = ({ stockDay }) => {
   return (
-    <div data-test="component-stockCard" className="stock__card">
+    <div data-test="component-stockCard" className="display stock__display">
       <p className="stock__card--heading">Search for a company:</p>
       <Input />
       {Object.keys(stockDay).length > 0 ? (

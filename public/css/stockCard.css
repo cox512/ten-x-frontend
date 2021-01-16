@@ -1,4 +1,4 @@
-.stock__card {
+/* .stock__card {
     border: solid 2px black;
     margin: .8rem auto;
     text-align: center;
@@ -6,10 +6,12 @@
     flex-direction: column;
     padding: 5px;
     max-width: 40rem;
-}
+} */
 
 .stock__card--heading {
     font-size: 2rem;
+    text-align: center;
+    margin: 0;
 }
 
 .inline-col {

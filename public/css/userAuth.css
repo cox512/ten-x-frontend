@@ -1,0 +1,15 @@
+.auth__login {
+    font-size: 2rem;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.nav__item {
+    display: flex !important;
+    align-items: center;
+    cursor: pointer;
+}
