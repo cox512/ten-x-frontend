@@ -1,10 +1,11 @@
 /* eslint-disable no-shadow */
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Modal from "../Modal";
 import history from "../../history";
 import { fetchUser, deleteUser, signOut, clearUser } from "../../actions/index";
+// import Button from "../Button";
 
 // eslint-disable-next-line no-shadow
 const UserDelete = ({
@@ -16,9 +17,9 @@ const UserDelete = ({
   clearUser,
 }) => {
   // You may want to keep this
-  // useEffect(() => {
-  //   fetchUser(currentUserId);
-  // }, []);
+  useEffect(() => {
+    fetchUser(currentUserId);
+  }, []);
 
   const handleDelete = (id) => {
     deleteUser(id);
@@ -27,17 +28,17 @@ const UserDelete = ({
   };
   const renderActions = () => {
     return (
-      <>
+      <div className="user-delete">
         <button
-          className="ui button negative"
+          className="ui inverted button negative"
           type="button"
           onClick={() => handleDelete(currentUserId)}>
           Delete
         </button>
-        <Link className="ui button" to={`/user/show/${currentUserId}`}>
+        <Link className="ui inverted button primary" to={`/user/show/${currentUserId}`}>
           Cancel
         </Link>
-      </>
+      </div>
     );
   };
 
@@ -47,6 +48,7 @@ const UserDelete = ({
     }
     return `Are you sure you want to delete the profile for ${currentUsername}? You will lose all of your saved stock data. This action can not be reversed.`;
   };
+
   return (
     <Modal
       data-test="component-user-delete"

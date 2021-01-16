@@ -3,7 +3,7 @@ import React from "react";
 import { Route, Router } from "react-router-dom";
 import history from "../history";
 
-import Header from "./Header";
+import PageHeader from "./PageHeader";
 import StockCard from "./stockDisplay/StockCard";
 import NavBar from "./NavBar";
 import Login from "./Login";
@@ -26,7 +26,7 @@ const App = () => {
       <Router history={history}>
         <NavBar />
 
-        <Route path="/" component={Header} />
+        <Route path="/" component={PageHeader} />
         <Route path="/" exact component={StockCard} />
         <Route path="/login" component={Login} />
 

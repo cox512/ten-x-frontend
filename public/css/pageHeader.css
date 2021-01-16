@@ -1,11 +1,11 @@
-.header {
+.page-header {
     height: 33vh;
     background-image: url(../images/stock-chart.jpg);
     background-size: cover;
     background-position: top;
 }
 
-.header__text-box {
+.page-header__text-box {
     position: absolute;
     top: 20%;
     left: 50%;

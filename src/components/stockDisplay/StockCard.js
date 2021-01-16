@@ -13,10 +13,10 @@ const StockCard = ({ stockDay }) => {
       <p className="stock__card--heading">Search for a company:</p>
       <Input />
       {Object.keys(stockDay).length > 0 ? (
-        <>
+        <div className="stock__display--details">
           <StockGlance data-test="component-stockGlance" />
           <Button data-test="component-button" text="More Info" />
-        </>
+        </div>
       ) : null}
     </div>
   );

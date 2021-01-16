@@ -1,5 +1,7 @@
 .auth__login {
     font-size: 2rem;
+    display: flex;
+    align-items: center;
 }
 
 nav {

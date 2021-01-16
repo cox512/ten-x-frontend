@@ -1,12 +1,6 @@
-/* .stock__card {
-    border: solid 2px black;
-    margin: .8rem auto;
+.stock__display--details {
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-    max-width: 40rem;
-} */
+}
 
 .stock__card--heading {
     font-size: 2rem;
