@@ -13,14 +13,13 @@ const UserEdit = ({ editUser, fetchUser, currentUserId, currentUser }) => {
 
   const onSubmit = (formValues) => {
     editUser(currentUserId, formValues);
-    // console.log(formValues);
   };
 
   return (
-    <div data-test="component-user-edit">
-      <h3>Edit Your Profile</h3>
+    <div className="user-profile display" data-test="component-user-edit">
       <UserForm
         initialValues={_.pick(currentUser, "fname", "lname", "username", "email", "password")}
+        formHeader="Account Details"
         submitUser={onSubmit}
         buttonText="Edit Profile"
       />

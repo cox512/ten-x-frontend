@@ -5,6 +5,7 @@ import { Field, reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { signIn, fetchUsers, fetchUser } from "../actions";
+import Button from "./Button";
 
 // eslint-disable-next-line no-shadow
 const Login = ({ handleSubmit, fetchUser, fetchUsers, users, signIn }) => {
@@ -53,13 +54,11 @@ const Login = ({ handleSubmit, fetchUser, fetchUsers, users, signIn }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="ui form error">
+    <form onSubmit={handleSubmit(onSubmit)} className="ui form error display">
       <Field name="username" type="text" component={renderInput} label="Username" />
       <Field name="password" type="password" component={renderInput} label="Password" />
       <div className="login__submission">
-        <button type="submit" className="ui button primary">
-          Submit
-        </button>
+        <Button type="submit" text="Submit" />
 
         <p className="login__submission">
           <i>

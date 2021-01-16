@@ -5,20 +5,18 @@ import PropTypes from "prop-types";
 
 import StockGlance from "./StockGlance";
 import Input from "../Input";
-// import SearchResults from "./SearchResults";
 import Button from "../Button";
 
 const StockCard = ({ stockDay }) => {
-  // console.log("stockDay", stockDay);
   return (
-    <div data-test="component-stockCard" className="card-border display">
-      <p>Search for a company:</p>
+    <div data-test="component-stockCard" className="display stock__display">
+      <p className="stock__card--heading">Search for a company:</p>
       <Input />
       {Object.keys(stockDay).length > 0 ? (
-        <>
+        <div className="stock__display--details">
           <StockGlance data-test="component-stockGlance" />
           <Button data-test="component-button" text="More Info" />
-        </>
+        </div>
       ) : null}
     </div>
   );
@@ -29,9 +27,6 @@ StockCard.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  // console.log(state);
   return { stockDay: state.stockDay, stockOverview: state.stockOverview };
 };
 export default connect(mapStateToProps)(StockCard);
-
-// export default StockCard;

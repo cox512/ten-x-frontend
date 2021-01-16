@@ -10,10 +10,7 @@ const Input = () => {
 
   return (
     <div className="ui segment">
-      <form
-        // onSubmit={onFormSubmit}
-        className="ui form inline-col "
-        data-test="component-input">
+      <form className="ui form inline-col " data-test="component-input">
         <div className="field">
           <input
             type="text"

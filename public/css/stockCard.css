@@ -1,7 +1,11 @@
-.card-border {
-    border: solid 2px black;
-    padding: 4px;
-    margin: 4px;
+.stock__display--details {
+    text-align: center;
+}
+
+.stock__card--heading {
+    font-size: 2rem;
+    text-align: center;
+    margin: 0;
 }
 
 .inline-col {
@@ -13,13 +17,6 @@
 .inline-row {
     display: flex;
     justify-content: space-around; 
-}
-
-.display {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
 }
 
 .section-head {
