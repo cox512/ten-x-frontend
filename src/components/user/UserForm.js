@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-console */
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { fetchUsers } from "../../actions";
+import Button from "../Button";
 
 // eslint-disable-next-line no-shadow
-const UserForm = ({ handleSubmit, submitUser, buttonText }) => {
+const UserForm = ({ handleSubmit, submitUser, buttonText, formHeader }) => {
   // eslint-disable-next-line consistent-return
   const renderError = ({ error, touched }) => {
     if (error && touched) {
@@ -38,14 +39,15 @@ const UserForm = ({ handleSubmit, submitUser, buttonText }) => {
       onSubmit={handleSubmit(onSubmit)}
       className="ui form error"
       data-test="component-user-create">
+      <h3 className="user-profile__header">{formHeader}</h3>
       <Field name="fname" type="text" component={renderInput} label="First Name" />
       <Field name="lname" type="text" component={renderInput} label="Last Name" />
       <Field name="username" type="text" component={renderInput} label="Username" />
       <Field name="email" type="text" component={renderInput} label="E-mail" />
       <Field name="password" type="password" component={renderInput} label="Password" />
-      <button type="submit" className="ui button primary">
-        {buttonText}
-      </button>
+      <div className="user-create__btn">
+        <Button type="submit" text={buttonText} />
+      </div>
     </form>
   );
 };

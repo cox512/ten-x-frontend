@@ -1,13 +1,11 @@
 /* eslint-disable arrow-body-style */
 import React from "react";
-// import { connect } from "react-redux";
 import { Route, Router } from "react-router-dom";
 import history from "../history";
 
-// import useStocks from "../hooks/useStocks";
-
+import PageHeader from "./PageHeader";
 import StockCard from "./stockDisplay/StockCard";
-import Header from "./Header";
+import NavBar from "./NavBar";
 import Login from "./Login";
 
 import UserCreate from "./user/UserCreate";
@@ -26,23 +24,22 @@ const App = () => {
   return (
     <div data-test="component-app">
       <Router history={history}>
-        <div>
-          <Header />
-          {}
-          <Route path="/" component={StockCard} />
-          <Route path="/login" component={Login} />
+        <NavBar />
 
-          <Route path="/user/new" exact component={UserCreate} />
-          <Route path="/user/delete/:id" component={UserDelete} />
-          <Route path="/user/edit/:id" component={UserEdit} />
-          <Route path="/user/show/:id" component={UserShow} />
+        <Route path="/" component={PageHeader} />
+        <Route path="/" exact component={StockCard} />
+        <Route path="/login" component={Login} />
 
-          <Route path="/watchlists/WatchlistsCreate" component={WatchlistsCreate} />
-          <Route path="/watchlists/WatchlistsDelete" component={WatchlistsDelete} />
-          <Route path="/watchlists/WatchlistsEdit/:id" component={WatchlistsEdit} />
-          <Route path="/watchlists/WatchlistsList" component={WatchlistsList} />
-          <Route path="/watchlists/WatchlistsShow" component={WatchlistsShow} />
-        </div>
+        <Route path="/user/new" exact component={UserCreate} />
+        <Route path="/user/delete/:id" component={UserDelete} />
+        <Route path="/user/edit/:id" component={UserEdit} />
+        <Route path="/user/show/:id" component={UserShow} />
+
+        <Route path="/watchlists/WatchlistsCreate" component={WatchlistsCreate} />
+        <Route path="/watchlists/WatchlistsDelete" component={WatchlistsDelete} />
+        <Route path="/watchlists/WatchlistsEdit/:id" component={WatchlistsEdit} />
+        <Route path="/watchlists/WatchlistsList" component={WatchlistsList} />
+        <Route path="/watchlists/WatchlistsShow" component={WatchlistsShow} />
       </Router>
     </div>
   );

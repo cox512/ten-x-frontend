@@ -17,6 +17,7 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case SIGN_OUT:
+      console.log("SIGN_OUT reducer runs");
       return {
         ...state,
         isSignedIn: false,

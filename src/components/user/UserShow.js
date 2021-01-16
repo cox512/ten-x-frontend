@@ -2,11 +2,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import Button from "../Button";
 
 const UserShow = ({ currentUser }) => {
-  console.log("currentUser:", currentUser);
   return (
-    <div data-test="component-user-show">
+    <div className="display" data-test="component-user-show">
       {currentUser ? (
         <>
           <table>
@@ -30,11 +30,8 @@ const UserShow = ({ currentUser }) => {
             </tbody>
           </table>
           <div>
-            <Link to={`/user/edit/${currentUser.id}`} className="ui button primary">
-              Edit
-            </Link>
-            <Link to={`/user/delete/${currentUser.id}`} className="ui button negative">
-              Delete
+            <Link to={`/user/edit/${currentUser.id}`}>
+              <Button text="Edit" />
             </Link>
           </div>
         </>

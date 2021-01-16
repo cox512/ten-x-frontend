@@ -1,0 +1,36 @@
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown__header {
+    text-align: center;
+    font-size: 1.6rem;
+}
+
+.dropdown__content {
+    display: none;
+    position:absolute;
+    padding: .8rem;
+    right: 0;
+    background-color: #f1f1f1;
+    min-width: 16rem;
+    box-shadow: 0 .8rem 1.6rem 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown__content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown__content {
+    display: block;
+}
+
+.dropdown__content a{
+    color: black;
+    padding: .8rem 0;
+    text-decoration: none;
+    font-size: 1.4rem;
+    display: block;
+}
