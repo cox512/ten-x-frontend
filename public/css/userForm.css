@@ -1,8 +1,10 @@
 
 .user-create__header {
     text-align: center;
+    font-size: 1.8rem;
 }
 
 .user-create__btn{
     text-align: center;
+    margin: 1rem;
 }

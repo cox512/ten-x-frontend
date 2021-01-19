@@ -1,0 +1,15 @@
+.stock-overview__section {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem;
+}
+
+.stock-overview {
+    margin: 3rem auto;
+    max-width: 90%;
+}
+
+.stock-overview__category {
+    /* text-align: center; */
+    /* font-size: 1.7rem; */
+}

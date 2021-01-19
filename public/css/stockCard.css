@@ -8,17 +8,6 @@
     margin: 0;
 }
 
-.inline-col {
-    display: flex !important;
-    flex-direction: column;
-    padding: 5px;
-}
-
-.inline-row {
-    display: flex;
-    justify-content: space-around; 
-}
-
 .section-head {
     font-size: 32px;
     margin: 3px;

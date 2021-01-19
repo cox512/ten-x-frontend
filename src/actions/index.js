@@ -2,6 +2,7 @@ import history from "../history";
 import users from "../APIs/users";
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-console */
+
 import {
   STOCK_DAY_PERFORMANCE,
   STOCK_OVERVIEW,
@@ -40,7 +41,6 @@ export const fetchStockDayPerf = (stock) => {
 };
 
 export const fetchStockOverview = (stock) => {
-  // console.log("fetchStockOverview:", stock);
   return {
     type: STOCK_OVERVIEW,
     payload: stock,
@@ -55,7 +55,8 @@ export const createUser = (formValues) => async (dispatch) => {
     history.push("/login");
   } else {
     // Replace this with an actual error page.
-    alert("There was an error creating your account.");
+    // alert("There was an error creating your account.");
+    history.push("/error/createuser");
   }
 };
 

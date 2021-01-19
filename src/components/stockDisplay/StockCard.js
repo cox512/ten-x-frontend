@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -15,7 +16,9 @@ const StockCard = ({ stockDay }) => {
       {Object.keys(stockDay).length > 0 ? (
         <div className="stock__display--details">
           <StockGlance data-test="component-stockGlance" />
-          <Button data-test="component-button" text="More Info" />
+          <Link to="/stockOverview">
+            <Button data-test="component-button" text="More Info" />
+          </Link>
         </div>
       ) : null}
     </div>

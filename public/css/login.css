@@ -5,3 +5,7 @@
     max-width: 40rem;
     margin: 0 auto;
 }
+
+.center>.button {
+    margin: 1rem;
+}

@@ -57,9 +57,7 @@ const Login = ({ handleSubmit, fetchUser, fetchUsers, users, signIn }) => {
     <form onSubmit={handleSubmit(onSubmit)} className="ui form error display">
       <Field name="username" type="text" component={renderInput} label="Username" />
       <Field name="password" type="password" component={renderInput} label="Password" />
-      <div className="login__submission">
-        <Button type="submit" text="Submit" />
-
+      <div className="center">
         <p className="login__submission">
           <i>
             {/* eslint-disable-next-line react/no-unescaped-entities */}
@@ -67,6 +65,9 @@ const Login = ({ handleSubmit, fetchUser, fetchUsers, users, signIn }) => {
             <Link to="/user/new"> Create one.</Link>
           </i>
         </p>
+        <div className="center">
+          <Button type="submit" text="Submit" />
+        </div>
       </div>
     </form>
   );

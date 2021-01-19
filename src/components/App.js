@@ -3,10 +3,12 @@ import React from "react";
 import { Route, Router } from "react-router-dom";
 import history from "../history";
 
-import PageHeader from "./PageHeader";
-import StockCard from "./stockDisplay/StockCard";
 import NavBar from "./NavBar";
 import Login from "./Login";
+import PageHeader from "./PageHeader";
+
+import StockCard from "./stockDisplay/StockCard";
+import StockOverview from "./stockDisplay/StockOverview";
 
 import UserCreate from "./user/UserCreate";
 import UserDelete from "./user/UserDelete";
@@ -19,6 +21,9 @@ import WatchlistsEdit from "./watchlists/WatchlistsEdit";
 import WatchlistsList from "./watchlists/WatchlistsList";
 import WatchlistsShow from "./watchlists/WatchlistsShow";
 
+import APIOvercallError from "./errors/APIOvercallError";
+import CreateUserError from "./errors/CreateUserError";
+
 // eslint-disable-next-line react/prop-types
 const App = () => {
   return (
@@ -28,6 +33,8 @@ const App = () => {
 
         <Route path="/" component={PageHeader} />
         <Route path="/" exact component={StockCard} />
+        <Route path="/stockOverview" component={StockOverview} />
+
         <Route path="/login" component={Login} />
 
         <Route path="/user/new" exact component={UserCreate} />
@@ -40,6 +47,9 @@ const App = () => {
         <Route path="/watchlists/WatchlistsEdit/:id" component={WatchlistsEdit} />
         <Route path="/watchlists/WatchlistsList" component={WatchlistsList} />
         <Route path="/watchlists/WatchlistsShow" component={WatchlistsShow} />
+
+        <Route path="/error/apiovercall" component={APIOvercallError} />
+        <Route path="/error/createuser" component={CreateUserError} />
       </Router>
     </div>
   );

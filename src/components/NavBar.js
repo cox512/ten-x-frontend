@@ -6,7 +6,7 @@ import UserAuth from "./user/UserAuth";
 
 const NavBar = () => {
   return (
-    <nav className="ui secondary pointing menu" data-test="component-navbar">
+    <nav className="navigation" data-test="component-navbar">
       <Link to="/" className="nav__logo">
         TEN-X
       </Link>

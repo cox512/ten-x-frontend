@@ -2,7 +2,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { formatter } from "../../helpers/helpers";
-import { fetchStockDayPerf } from "../../actions";
 
 const isNeg = RegExp(/^-/);
 
@@ -14,8 +13,7 @@ const StockGlance = ({ stockDay, stockOverview }) => {
       </h4>
       <h5 data-test="element-stock-name" className="section-subhead">
         {/* conditionally render company name if the stockOverview symbol matches the stockDay symbol. Sometimes it displays the wrong company name b/c the API calls were exhausted before it could do BOTH of the calls required. */}
-        {/* eslint-disable-next-line dot-notation */}
-        {stockOverview["Symbol"] === stockDay["01. symbol"] ? stockOverview["Name"] : ""}
+        {stockOverview.Symbol === stockDay["01. symbol"] ? stockOverview.Name : ""}
       </h5>
       <p className="section-subhead">{formatter.format(stockDay["05. price"])}</p>
 
@@ -36,10 +34,7 @@ const StockGlance = ({ stockDay, stockOverview }) => {
 };
 
 const mapStateToProps = (state) => {
-  // console.log("stock glance state:", state);
   return { stockDay: state.stockDay, stockOverview: state.stockOverview };
 };
 
-export default connect(mapStateToProps, { fetchStockDayPerf })(StockGlance);
-
-// export default StockGlance;
+export default connect(mapStateToProps)(StockGlance);
