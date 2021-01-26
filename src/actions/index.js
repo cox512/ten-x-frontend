@@ -54,8 +54,6 @@ export const createUser = (formValues) => async (dispatch) => {
     dispatch({ type: CREATE_USER, payload: response.data });
     history.push("/login");
   } else {
-    // Replace this with an actual error page.
-    // alert("There was an error creating your account.");
     history.push("/error/createuser");
   }
 };
@@ -66,10 +64,36 @@ export const fetchUsers = () => async (dispatch) => {
   dispatch({ type: FETCH_USERS, payload: response.data });
 };
 
-export const fetchUser = (id) => async (dispatch) => {
-  const response = await users.get(`/users/${id}`);
+export const fetchUser = (username, password) => async (dispatch) => {
+  const response = await users.post(
+    "/users/login",
+    {
+      username,
+      password,
+    },
+    { withCredentials: true }
+  );
 
-  dispatch({ type: FETCH_USER, payload: response.data });
+  const { data } = response.data;
+  const loginDetails = {
+    profile: {
+      fname: data.fname,
+      lname: data.lname,
+      username: data.username,
+      email: data.email,
+    },
+    auth: {
+      userId: data.id,
+      isSignedIn: response.data.logged_in,
+      status: response.data.status.code,
+    },
+  };
+  if (response.data.status.code === 200) {
+    dispatch({ type: FETCH_USER, payload: loginDetails });
+    history.push(`/`);
+  } else {
+    history.push("/error/login");
+  }
 };
 
 export const editUser = (id, formValues) => async (dispatch) => {

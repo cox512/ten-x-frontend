@@ -1,21 +1,14 @@
 /* eslint-disable no-console */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { Field, reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { signIn, fetchUsers, fetchUser } from "../actions";
+import { fetchUser } from "../actions";
 import Button from "./Button";
 
 // eslint-disable-next-line no-shadow
-const Login = ({ handleSubmit, fetchUser, fetchUsers, users, signIn }) => {
-  // eslint-disable-next-line react/destructuring-assignment
-  useEffect(() => {
-    // Gathering all the users on load
-    // This can be taken out once the client is connected to the server. This logic will be performed server-side.
-    fetchUsers();
-  }, []);
-
+const Login = ({ handleSubmit, fetchUser }) => {
   // eslint-disable-next-line consistent-return
   const renderError = ({ error, touched }) => {
     if (error && touched) {
@@ -39,18 +32,8 @@ const Login = ({ handleSubmit, fetchUser, fetchUsers, users, signIn }) => {
   }, []);
 
   const onSubmit = (formValues) => {
-    // Compare login details with the list of created users and look for a match
-    // This can be done on the back end once it's all connected
-    const foundUser = users.find(
-      (user) => user.username === formValues.username && user.password === formValues.password
-    );
-
-    if (!foundUser) {
-      console.log("Not a valid user");
-    } else {
-      signIn(foundUser.id);
-      fetchUser(foundUser.id);
-    }
+    // Add Error handling to the action creator
+    fetchUser(formValues.username, formValues.password);
   };
 
   return (
@@ -93,4 +76,4 @@ const mapStateToProps = (state) => {
 
 const formWrapped = reduxForm({ form: "loginForm", validate })(Login);
 
-export default connect(mapStateToProps, { signIn, fetchUsers, fetchUser })(formWrapped);
+export default connect(mapStateToProps, { fetchUser })(formWrapped);

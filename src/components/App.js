@@ -23,6 +23,7 @@ import WatchlistsShow from "./watchlists/WatchlistsShow";
 
 import APIOvercallError from "./errors/APIOvercallError";
 import CreateUserError from "./errors/CreateUserError";
+import LogInError from "./errors/LogInError";
 
 // eslint-disable-next-line react/prop-types
 const App = () => {
@@ -50,6 +51,7 @@ const App = () => {
 
         <Route path="/error/apiovercall" component={APIOvercallError} />
         <Route path="/error/createuser" component={CreateUserError} />
+        <Route path="/error/login" component={LogInError} />
       </Router>
     </div>
   );

@@ -9,17 +9,17 @@ import {
   CLEAR_USER,
 } from "../actions/types";
 
-const INITIAL_STATE = {
-  profile: {
-    fname: null,
-    lname: null,
-    email: null,
-    username: null,
-    password: null,
-  },
-};
+// const INITIAL_STATE = {
+//   profile: {
+//     fname: null,
+//     lname: null,
+//     email: null,
+//     username: null,
+//     password: null,
+//   },
+// };
 
-export default (state = INITIAL_STATE, action) => {
+export default (state = { profile: {}, auth: {} }, action) => {
   switch (action.type) {
     case CREATE_USER:
       return { ...state, [action.payload.id]: action.payload };
@@ -28,7 +28,7 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, ..._.mapKeys(action.payload, "id") };
 
     case FETCH_USER:
-      return { profile: action.payload };
+      return { ...state, ...action.payload };
 
     case EDIT_USER:
       return { ...state, profile: action.payload };
@@ -37,7 +37,7 @@ export default (state = INITIAL_STATE, action) => {
       return _.omit(state, action.payload);
 
     case CLEAR_USER:
-      return INITIAL_STATE;
+      return state;
 
     default:
       return state;

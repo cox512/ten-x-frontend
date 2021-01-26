@@ -9,7 +9,7 @@
     max-width: 90%;
 }
 
-.stock-overview__category {
-    /* text-align: center; */
-    /* font-size: 1.7rem; */
+div .ui.styled.accordion {
+    margin: .8rem auto;
+    width: 90%;
 }
