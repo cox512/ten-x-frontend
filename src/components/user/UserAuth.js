@@ -30,7 +30,7 @@ const UserAuth = ({ isSignedIn, signOut, clearUser }) => {
 
   const onSignOutClick = () => {
     signOut();
-    clearUser();
+    // clearUser();
   };
 
   // eslint-disable-next-line consistent-return

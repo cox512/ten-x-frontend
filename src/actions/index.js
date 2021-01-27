@@ -16,20 +16,37 @@ import {
   CLEAR_USER,
 } from "./types";
 
-export const signIn = (userId) => {
-  console.log("Signed In UserId:", userId);
-  history.push("/");
+const loginDetails = (fname, lname, username, email, userId, isSignedIn, status) => {
   return {
-    type: SIGN_IN,
-    payload: userId,
+    profile: {
+      fname,
+      lname,
+      username,
+      email,
+    },
+    auth: {
+      userId,
+      isSignedIn,
+      status,
+    },
   };
 };
 
-export const signOut = () => {
-  console.log("signOut runs");
+// export const signIn = (userId) => {
+//   console.log("Signed In UserId:", userId);
+//   history.push("/");
+//   return {
+//     type: SIGN_IN,
+//     payload: userId,
+//   };
+// };
+
+export const signOut = (id) => {
+  users.get(`/users/logout/${id}`);
+
   return {
     type: SIGN_OUT,
-    payload: false,
+    payload: { profile: {}, auth: {} },
   };
 };
 
@@ -48,13 +65,29 @@ export const fetchStockOverview = (stock) => {
 };
 
 export const createUser = (formValues) => async (dispatch) => {
-  const response = await users.post("/users", formValues);
-  // Find the proper way to error handle. Is it 'try' and 'catch'?
-  if (response.status === 201) {
-    dispatch({ type: CREATE_USER, payload: response.data });
-    history.push("/login");
+  const response = await users.post("/users/register", formValues);
+
+  // Add proper error handling
+  // Try automatically logging the user in as well. Python is logging me in, but my front end doesn't realize it. I have access to the user's id here, but I don't need that. For login I need username, which I  have and a password, which I don't
+  console.log(response);
+  const { data } = response.data;
+  const userAuthInfo = loginDetails(
+    data.fname,
+    data.lname,
+    data.username,
+    data.email,
+    data.id,
+    response.data.logged_in,
+    response.data.status.code
+  );
+
+  if (response.status === 200) {
+    dispatch({ type: CREATE_USER, payload: userAuthInfo });
+
+    history.push("/");
   } else {
     history.push("/error/createuser");
+    // dispatch({ type: "CREATE_USER_ERROR", payload: response });
   }
 };
 
@@ -75,21 +108,18 @@ export const fetchUser = (username, password) => async (dispatch) => {
   );
 
   const { data } = response.data;
-  const loginDetails = {
-    profile: {
-      fname: data.fname,
-      lname: data.lname,
-      username: data.username,
-      email: data.email,
-    },
-    auth: {
-      userId: data.id,
-      isSignedIn: response.data.logged_in,
-      status: response.data.status.code,
-    },
-  };
+  const userAuthInfo = loginDetails(
+    data.fname,
+    data.lname,
+    data.username,
+    data.email,
+    data.id,
+    response.data.logged_in,
+    response.data.status.code
+  );
+
   if (response.data.status.code === 200) {
-    dispatch({ type: FETCH_USER, payload: loginDetails });
+    dispatch({ type: FETCH_USER, payload: userAuthInfo });
     history.push(`/`);
   } else {
     history.push("/error/login");
