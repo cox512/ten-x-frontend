@@ -3,12 +3,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { signOut, clearUser } from "../../actions";
+import { signOut } from "../../actions";
 import Dropdown from "../Dropdown";
 import Button from "../Button";
 
 // eslint-disable-next-line no-shadow
-const UserAuth = ({ isSignedIn, signOut, clearUser }) => {
+const UserAuth = ({ isSignedIn, signOut }) => {
   const label = <i className="nav__item user circle outline icon" />;
   const noAuthOptions = [
     <Link to="/login" className="profile__item">
@@ -30,7 +30,6 @@ const UserAuth = ({ isSignedIn, signOut, clearUser }) => {
 
   const onSignOutClick = () => {
     signOut();
-    // clearUser();
   };
 
   // eslint-disable-next-line consistent-return
@@ -61,4 +60,4 @@ const UserAuth = ({ isSignedIn, signOut, clearUser }) => {
 const mapStateToProps = (state) => {
   return { isSignedIn: state.user.auth.isSignedIn };
 };
-export default connect(mapStateToProps, { signOut, clearUser })(UserAuth);
+export default connect(mapStateToProps, { signOut })(UserAuth);

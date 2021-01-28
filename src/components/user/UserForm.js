@@ -3,7 +3,6 @@
 import React, { useCallback } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
-import { fetchUsers } from "../../actions";
 import Button from "../Button";
 
 // eslint-disable-next-line no-shadow
@@ -21,6 +20,7 @@ const UserForm = ({ handleSubmit, submitUser, buttonText, formHeader }) => {
 
   const renderInput = useCallback(({ input, label, type, meta }) => {
     const className = `field ${meta.error && meta.touched ? "error" : ""}`;
+
     return (
       <div className={className}>
         <label>{label}</label>
@@ -44,7 +44,7 @@ const UserForm = ({ handleSubmit, submitUser, buttonText, formHeader }) => {
       <Field name="lname" type="text" component={renderInput} label="Last Name" />
       <Field name="username" type="text" component={renderInput} label="Username" />
       <Field name="email" type="text" component={renderInput} label="E-mail" />
-      <Field name="password" type="password" component={renderInput} label="Password" />
+      {/* <Field name="password" type="password" component={renderInput} label="Password" /> */}
       <div className="user-create__btn">
         <Button type="submit" text={buttonText} />
       </div>
@@ -72,10 +72,10 @@ const validate = (formValues) => {
   return errors;
 };
 
-const mapStateToProps = (state) => {
-  // We'll be able to get rid of this 'users' object once we're connected to the backend
-  return { users: Object.values(state.user) };
-};
+// const mapStateToProps = (state) => {
+//   return { users: Object.values(state.user) };
+// };
+
 const formWrapped = reduxForm({ form: "userForm", validate })(UserForm);
 
-export default connect(mapStateToProps, { fetchUsers })(formWrapped);
+export default connect(null)(formWrapped);

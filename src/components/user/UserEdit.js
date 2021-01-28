@@ -7,9 +7,9 @@ import { fetchUser, editUser } from "../../actions";
 import UserForm from "./UserForm";
 
 const UserEdit = ({ editUser, fetchUser, currentUserId, currentUser }) => {
-  useEffect(() => {
-    fetchUser(currentUserId);
-  }, []);
+  // useEffect(() => {
+  //   fetchUser(currentUser.username);
+  // }, []);
 
   const onSubmit = (formValues) => {
     editUser(currentUserId, formValues);
@@ -29,7 +29,7 @@ const UserEdit = ({ editUser, fetchUser, currentUserId, currentUser }) => {
 
 const mapStateToProps = (state) => {
   return {
-    currentUserId: state.auth.userId,
+    currentUserId: state.user.auth.userId,
     currentUser: state.user.profile,
   };
 };

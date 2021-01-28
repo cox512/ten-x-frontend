@@ -13,7 +13,6 @@ const useStocks = () => {
   const stockSearch = async (functionCall, termKey, term) => {
     const random = Math.floor(Math.random() * 2);
     const key = KEY[random];
-    console.log(key);
     const response = await alphaVantage.get(
       `/query?function=${functionCall}&${termKey}=${term}&apikey=${key}`
     );

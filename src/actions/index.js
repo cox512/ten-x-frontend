@@ -6,14 +6,12 @@ import users from "../APIs/users";
 import {
   STOCK_DAY_PERFORMANCE,
   STOCK_OVERVIEW,
-  SIGN_IN,
   SIGN_OUT,
   CREATE_USER,
-  FETCH_USERS,
+  // FETCH_USERS,
   FETCH_USER,
   DELETE_USER,
   EDIT_USER,
-  CLEAR_USER,
 } from "./types";
 
 const loginDetails = (fname, lname, username, email, userId, isSignedIn, status) => {
@@ -31,15 +29,6 @@ const loginDetails = (fname, lname, username, email, userId, isSignedIn, status)
     },
   };
 };
-
-// export const signIn = (userId) => {
-//   console.log("Signed In UserId:", userId);
-//   history.push("/");
-//   return {
-//     type: SIGN_IN,
-//     payload: userId,
-//   };
-// };
 
 export const signOut = (id) => {
   users.get(`/users/logout/${id}`);
@@ -66,10 +55,7 @@ export const fetchStockOverview = (stock) => {
 
 export const createUser = (formValues) => async (dispatch) => {
   const response = await users.post("/users/register", formValues);
-
   // Add proper error handling
-  // Try automatically logging the user in as well. Python is logging me in, but my front end doesn't realize it. I have access to the user's id here, but I don't need that. For login I need username, which I  have and a password, which I don't
-  console.log(response);
   const { data } = response.data;
   const userAuthInfo = loginDetails(
     data.fname,
@@ -83,18 +69,11 @@ export const createUser = (formValues) => async (dispatch) => {
 
   if (response.status === 200) {
     dispatch({ type: CREATE_USER, payload: userAuthInfo });
-
     history.push("/");
   } else {
     history.push("/error/createuser");
     // dispatch({ type: "CREATE_USER_ERROR", payload: response });
   }
-};
-
-export const fetchUsers = () => async (dispatch) => {
-  const response = await users.get("/users");
-
-  dispatch({ type: FETCH_USERS, payload: response.data });
 };
 
 export const fetchUser = (username, password) => async (dispatch) => {
@@ -104,6 +83,7 @@ export const fetchUser = (username, password) => async (dispatch) => {
       username,
       password,
     },
+    // DO I NEED THIS?
     { withCredentials: true }
   );
 
@@ -127,7 +107,7 @@ export const fetchUser = (username, password) => async (dispatch) => {
 };
 
 export const editUser = (id, formValues) => async (dispatch) => {
-  const response = await users.patch(`users/${id}`, formValues);
+  const response = await users.put(`users/${id}`, formValues);
 
   dispatch({ type: EDIT_USER, payload: response.data });
   history.push(`/user/show/${id}`);
@@ -138,8 +118,4 @@ export const deleteUser = (id) => async (dispatch) => {
 
   dispatch({ type: DELETE_USER, payload: id });
   history.push(`/`);
-};
-
-export const clearUser = () => (dispatch) => {
-  dispatch({ type: CLEAR_USER });
 };

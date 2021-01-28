@@ -4,10 +4,10 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Button from "../Button";
 
-const UserShow = ({ currentUser }) => {
+const UserShow = ({ currentUser, currentUserAuth }) => {
   return (
     <div className="display" data-test="component-user-show">
-      {currentUser ? (
+      {currentUserAuth.isSignedIn ? (
         <>
           <table>
             <tbody>
@@ -30,7 +30,7 @@ const UserShow = ({ currentUser }) => {
             </tbody>
           </table>
           <div>
-            <Link to={`/user/edit/${currentUser.id}`}>
+            <Link to={`/user/edit/${currentUserAuth.userId}`}>
               <Button text="Edit" />
             </Link>
           </div>
@@ -41,6 +41,6 @@ const UserShow = ({ currentUser }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { currentUser: state.user.profile };
+  return { currentUser: state.user.profile, currentUserAuth: state.user.auth };
 };
 export default connect(mapStateToProps)(UserShow);
