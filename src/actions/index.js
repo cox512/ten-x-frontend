@@ -8,7 +8,6 @@ import {
   STOCK_OVERVIEW,
   SIGN_OUT,
   CREATE_USER,
-  // FETCH_USERS,
   FETCH_USER,
   DELETE_USER,
   EDIT_USER,
@@ -77,15 +76,10 @@ export const createUser = (formValues) => async (dispatch) => {
 };
 
 export const fetchUser = (username, password) => async (dispatch) => {
-  const response = await users.post(
-    "/users/login",
-    {
-      username,
-      password,
-    },
-    // DO I NEED THIS?
-    { withCredentials: true }
-  );
+  const response = await users.post("/users/login", {
+    username,
+    password,
+  });
 
   const { data } = response.data;
   const userAuthInfo = loginDetails(
@@ -107,9 +101,21 @@ export const fetchUser = (username, password) => async (dispatch) => {
 };
 
 export const editUser = (id, formValues) => async (dispatch) => {
+  // Add proper error handling
   const response = await users.put(`users/${id}`, formValues);
 
-  dispatch({ type: EDIT_USER, payload: response.data });
+  const { data } = response.data;
+  const editedUser = loginDetails(
+    data.fname,
+    data.lname,
+    data.username,
+    data.email,
+    data.id,
+    true,
+    response.data.status.code
+  );
+
+  dispatch({ type: EDIT_USER, payload: editedUser });
   history.push(`/user/show/${id}`);
 };
 

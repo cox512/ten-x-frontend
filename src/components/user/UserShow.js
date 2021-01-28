@@ -43,4 +43,5 @@ const UserShow = ({ currentUser, currentUserAuth }) => {
 const mapStateToProps = (state) => {
   return { currentUser: state.user.profile, currentUserAuth: state.user.auth };
 };
+
 export default connect(mapStateToProps)(UserShow);

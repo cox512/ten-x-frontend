@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import Button from "../Button";
 
 // eslint-disable-next-line no-shadow
-const UserForm = ({ handleSubmit, submitUser, buttonText, formHeader }) => {
+const UserForm = ({ handleSubmit, submitUser, buttonText, formHeader, currentUserAuth }) => {
   // eslint-disable-next-line consistent-return
   const renderError = ({ error, touched }) => {
     if (error && touched) {
@@ -44,7 +44,9 @@ const UserForm = ({ handleSubmit, submitUser, buttonText, formHeader }) => {
       <Field name="lname" type="text" component={renderInput} label="Last Name" />
       <Field name="username" type="text" component={renderInput} label="Username" />
       <Field name="email" type="text" component={renderInput} label="E-mail" />
-      {/* <Field name="password" type="password" component={renderInput} label="Password" /> */}
+      {!currentUserAuth ? (
+        <Field name="password" type="password" component={renderInput} label="Password" />
+      ) : null}
       <div className="user-create__btn">
         <Button type="submit" text={buttonText} />
       </div>
@@ -72,10 +74,10 @@ const validate = (formValues) => {
   return errors;
 };
 
-// const mapStateToProps = (state) => {
-//   return { users: Object.values(state.user) };
-// };
+const mapStateToProps = (state) => {
+  return { currentUserAuth: state.user.auth.isSignedIn };
+};
 
 const formWrapped = reduxForm({ form: "userForm", validate })(UserForm);
 
-export default connect(null)(formWrapped);
+export default connect(mapStateToProps)(formWrapped);

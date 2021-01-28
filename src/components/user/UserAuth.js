@@ -60,4 +60,5 @@ const UserAuth = ({ isSignedIn, signOut }) => {
 const mapStateToProps = (state) => {
   return { isSignedIn: state.user.auth.isSignedIn };
 };
+
 export default connect(mapStateToProps, { signOut })(UserAuth);

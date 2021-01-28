@@ -1,16 +1,12 @@
 /* eslint-disable no-shadow */
 /* eslint-disable consistent-return */
-import React, { useEffect } from "react";
+import React from "react";
 import _ from "lodash";
 import { connect } from "react-redux";
-import { fetchUser, editUser } from "../../actions";
+import { editUser } from "../../actions";
 import UserForm from "./UserForm";
 
-const UserEdit = ({ editUser, fetchUser, currentUserId, currentUser }) => {
-  // useEffect(() => {
-  //   fetchUser(currentUser.username);
-  // }, []);
-
+const UserEdit = ({ editUser, currentUserId, currentUser }) => {
   const onSubmit = (formValues) => {
     editUser(currentUserId, formValues);
   };
@@ -34,4 +30,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { editUser, fetchUser })(UserEdit);
+export default connect(mapStateToProps, { editUser })(UserEdit);

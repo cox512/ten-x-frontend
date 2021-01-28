@@ -1,18 +1,13 @@
 /* eslint-disable no-shadow */
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Modal from "../Modal";
 import history from "../../history";
-import { fetchUser, deleteUser, signOut } from "../../actions/index";
+import { deleteUser, signOut } from "../../actions/index";
 
 // eslint-disable-next-line no-shadow
-const UserDelete = ({ currentUserId, currentUsername, signOut, deleteUser, fetchUser }) => {
-  // You may want to keep this
-  useEffect(() => {
-    fetchUser(currentUserId);
-  }, []);
-
+const UserDelete = ({ currentUserId, currentUsername, signOut, deleteUser }) => {
   const handleDelete = (id) => {
     deleteUser(id);
     signOut();
@@ -55,4 +50,4 @@ const mapStateToProps = (state) => {
   return { currentUserId: state.user.auth.userId, currentUsername: state.user.profile.username };
 };
 
-export default connect(mapStateToProps, { fetchUser, deleteUser, signOut })(UserDelete);
+export default connect(mapStateToProps, { deleteUser, signOut })(UserDelete);
