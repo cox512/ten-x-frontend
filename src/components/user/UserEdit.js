@@ -6,9 +6,9 @@ import { connect } from "react-redux";
 import { editUser } from "../../actions";
 import UserForm from "./UserForm";
 
-const UserEdit = ({ editUser, currentUserId, currentUser }) => {
+const UserEdit = ({ editUser, currentUserId, currentUser, token }) => {
   const onSubmit = (formValues) => {
-    editUser(currentUserId, formValues);
+    editUser(currentUserId, formValues, token);
   };
 
   return (
@@ -27,6 +27,7 @@ const mapStateToProps = (state) => {
   return {
     currentUserId: state.user.auth.userId,
     currentUser: state.user.profile,
+    token: state.user.auth.token,
   };
 };
 

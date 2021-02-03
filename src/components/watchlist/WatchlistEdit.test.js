@@ -1,11 +1,11 @@
 import React from "react";
-import WatchlistsEdit from "./WatchlistsEdit";
+import WatchlistEdit from "./WatchlistEdit";
 import { findByTestAttr } from "../../../test/testUtils";
 import { shallow } from "enzyme";
 
 const setup = (props = {}) => {
   //   const store = storeFactory({ ...props });
-  const wrapper = shallow(<WatchlistsEdit {...props} />);
+  const wrapper = shallow(<WatchlistEdit {...props} />);
 
   return wrapper;
 };

@@ -8,7 +8,7 @@ import { fetchUser } from "../actions";
 import Button from "./Button";
 
 // eslint-disable-next-line no-shadow
-const Login = ({ handleSubmit, fetchUser }) => {
+const Login = ({ handleSubmit, fetchUser, token }) => {
   // eslint-disable-next-line consistent-return
   const renderError = ({ error, touched }) => {
     if (error && touched) {
@@ -33,7 +33,7 @@ const Login = ({ handleSubmit, fetchUser }) => {
 
   const onSubmit = (formValues) => {
     // Add Error handling to the action creator
-    fetchUser(formValues.username, formValues.password);
+    fetchUser(formValues.username, formValues.password, token);
   };
 
   return (
@@ -70,7 +70,7 @@ const validate = (formValues) => {
 // eslint-disable-next-line consistent-return
 const mapStateToProps = (state) => {
   return {
-    users: Object.values(state.user),
+    token: state.user.auth.token,
   };
 };
 

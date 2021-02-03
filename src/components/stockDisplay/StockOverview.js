@@ -12,7 +12,7 @@ const StockOverview = ({ stockDay, stockOverview }) => {
       title: "Company Overview",
       content: (
         <>
-          <div className="inline-row">
+          <section className="stock-overview__section inline-row">
             <p className="stock-overview__item">
               Country: <span>{stockOverview.Country}</span>
             </p>
@@ -25,12 +25,12 @@ const StockOverview = ({ stockDay, stockOverview }) => {
             <p className="stock-overview__item">
               No. of Employees: <span>{stockOverview.FullTimeEmployees}</span>
             </p>
-          </div>
-          <div>
+          </section>
+          <section>
             <p className="stock-overview__item">
               Company Description: <span>{stockOverview.Description}</span>
             </p>
-          </div>
+          </section>
         </>
       ),
     },

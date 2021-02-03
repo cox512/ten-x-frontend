@@ -13,3 +13,11 @@ div .ui.styled.accordion {
     margin: .8rem auto;
     width: 90%;
 }
+
+.stock-overview__item {
+    margin:1rem ;
+}
+
+.stock-overview__section>p:first-child{
+    margin:1rem ;
+}

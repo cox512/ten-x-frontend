@@ -1,7 +1,7 @@
 import React from "react";
 
-const WatchlistsList = () => {
+const WatchlistList = () => {
   return <div data-test="component-watchlists-list">Watchlists List</div>;
 };
 
-export default WatchlistsList;
+export default WatchlistList;

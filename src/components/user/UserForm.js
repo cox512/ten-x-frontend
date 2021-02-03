@@ -35,10 +35,7 @@ const UserForm = ({ handleSubmit, submitUser, buttonText, formHeader, currentUse
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="ui form error"
-      data-test="component-user-create">
+    <form onSubmit={handleSubmit(onSubmit)} className="ui form error">
       <h3 className="user-profile__header">{formHeader}</h3>
       <Field name="fname" type="text" component={renderInput} label="First Name" />
       <Field name="lname" type="text" component={renderInput} label="Last Name" />

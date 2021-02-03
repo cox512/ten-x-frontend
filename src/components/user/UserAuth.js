@@ -5,10 +5,10 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { signOut } from "../../actions";
 import Dropdown from "../Dropdown";
-import Button from "../Button";
+// import Button from "../Button";
 
 // eslint-disable-next-line no-shadow
-const UserAuth = ({ isSignedIn, signOut }) => {
+const UserAuth = ({ isSignedIn, signOut, watchlists, token, authData }) => {
   const label = <i className="nav__item user circle outline icon" />;
   const noAuthOptions = [
     <Link to="/login" className="profile__item">
@@ -28,25 +28,27 @@ const UserAuth = ({ isSignedIn, signOut }) => {
     </Link>,
   ];
 
-  const onSignOutClick = () => {
-    signOut();
-  };
+  const watchlistOptions = [
+    // Holds the entire array or watchlists
+    // I may not need this. I could maybe just directly add the watchlists state.
+  ];
 
   // eslint-disable-next-line consistent-return
   const renderAuthButton = () => {
-    if (isSignedIn) {
+    if (authData.isSignedIn) {
       return (
         <>
           <div>
-            <Link to="/" onClick={onSignOutClick}>
-              <Button text="Log Out" />
-            </Link>
+            <button type="button" onClick={() => signOut(authData.userId, authData.token)}>
+              Log Out
+            </button>
+            <Dropdown label="Watchlists" header="Watchlists" options={watchlists} />
           </div>
-          <Dropdown label={label} options={authOptions} />
+          <Dropdown label={label} header="Account Settings" options={authOptions} />
         </>
       );
     } else {
-      return <Dropdown label={label} options={noAuthOptions} />;
+      return <Dropdown label={label} header="Account Settings" options={noAuthOptions} />;
     }
   };
 
@@ -58,7 +60,12 @@ const UserAuth = ({ isSignedIn, signOut }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { isSignedIn: state.user.auth.isSignedIn };
+  return {
+    authData: state.user.auth,
+    // isSignedIn: state.user.auth.isSignedIn,
+    watchlists: state.watchlists.watchlists,
+    // token: state.user.auth.token,
+  };
 };
 
 export default connect(mapStateToProps, { signOut })(UserAuth);

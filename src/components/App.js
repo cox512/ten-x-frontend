@@ -15,15 +15,16 @@ import UserDelete from "./user/UserDelete";
 import UserEdit from "./user/UserEdit";
 import UserShow from "./user/UserShow";
 
-import WatchlistsCreate from "./watchlists/WatchlistsCreate";
-import WatchlistsDelete from "./watchlists/WatchlistsDelete";
-import WatchlistsEdit from "./watchlists/WatchlistsEdit";
-import WatchlistsList from "./watchlists/WatchlistsList";
-import WatchlistsShow from "./watchlists/WatchlistsShow";
+import WatchlistCreate from "./watchlist/WatchlistCreate";
+import WatchlistDelete from "./watchlist/WatchlistDelete";
+import WatchlistEdit from "./watchlist/WatchlistEdit";
+import WatchlistList from "./watchlist/WatchlistList";
+import WatchlistShow from "./watchlist/WatchlistShow";
 
 import APIOvercallError from "./errors/APIOvercallError";
 import CreateUserError from "./errors/CreateUserError";
 import LogInError from "./errors/LogInError";
+import LogoutError from "./errors/LogoutError";
 
 // eslint-disable-next-line react/prop-types
 const App = () => {
@@ -43,15 +44,16 @@ const App = () => {
         <Route path="/user/edit/:id" component={UserEdit} />
         <Route path="/user/show/:id" component={UserShow} />
 
-        <Route path="/watchlists/WatchlistsCreate" component={WatchlistsCreate} />
-        <Route path="/watchlists/WatchlistsDelete" component={WatchlistsDelete} />
-        <Route path="/watchlists/WatchlistsEdit/:id" component={WatchlistsEdit} />
-        <Route path="/watchlists/WatchlistsList" component={WatchlistsList} />
-        <Route path="/watchlists/WatchlistsShow" component={WatchlistsShow} />
+        <Route path="/watchlist/WatchlistCreate" component={WatchlistCreate} />
+        <Route path="/watchlist/WatchlistDelete" component={WatchlistDelete} />
+        <Route path="/watchlist/WatchlistEdit/:id" component={WatchlistEdit} />
+        <Route path="/watchlist/WatchlistList" component={WatchlistList} />
+        <Route path="/watchlist/WatchlistShow" component={WatchlistShow} />
 
         <Route path="/error/apiovercall" component={APIOvercallError} />
         <Route path="/error/createuser" component={CreateUserError} />
         <Route path="/error/login" component={LogInError} />
+        <Route path="/error/logout" component={LogoutError} />
       </Router>
     </div>
   );

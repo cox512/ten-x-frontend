@@ -1,5 +1,5 @@
 import history from "../history";
-import users from "../APIs/users";
+import database from "../APIs/database";
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-console */
 
@@ -11,9 +11,14 @@ import {
   FETCH_USER,
   DELETE_USER,
   EDIT_USER,
+  CREATE_WATCHLIST,
+  FETCH_WATCHLISTS,
+  FETCH_WATCHLIST,
+  EDIT_WATCHLIST,
+  DELETE_WATCHLIST,
 } from "./types";
 
-const loginDetails = (fname, lname, username, email, userId, isSignedIn, status) => {
+const loginDetails = (fname, lname, username, email, userId, isSignedIn, status, token) => {
   return {
     profile: {
       fname,
@@ -25,17 +30,24 @@ const loginDetails = (fname, lname, username, email, userId, isSignedIn, status)
       userId,
       isSignedIn,
       status,
+      token,
     },
   };
 };
 
-export const signOut = (id) => {
-  users.get(`/users/logout/${id}`);
+export const signOut = (id, token) => async (dispatch) => {
+  const response = await database.get(`/users/logout/${id}`, {
+    headers: { Authorization: token },
+  });
 
-  return {
-    type: SIGN_OUT,
-    payload: { profile: {}, auth: {} },
-  };
+  console.log(response);
+
+  if (response.status === 200) {
+    dispatch({ type: SIGN_OUT, payload: { profile: {}, auth: {} } });
+    history.push("/");
+  } else {
+    history.push("/error/createuser");
+  }
 };
 
 export const fetchStockDayPerf = (stock) => {
@@ -52,8 +64,12 @@ export const fetchStockOverview = (stock) => {
   };
 };
 
+/// ////////////////////////////
+/// / USER ACTION CREATORS
+/// ///////////////////////////
+
 export const createUser = (formValues) => async (dispatch) => {
-  const response = await users.post("/users/register", formValues);
+  const response = await database.post("/users/register", formValues);
   // Add proper error handling
   const { data } = response.data;
   const userAuthInfo = loginDetails(
@@ -75,11 +91,20 @@ export const createUser = (formValues) => async (dispatch) => {
   }
 };
 
-export const fetchUser = (username, password) => async (dispatch) => {
-  const response = await users.post("/users/login", {
-    username,
-    password,
-  });
+export const fetchUser = (username, password, token) => async (dispatch) => {
+  const response = await database.post(
+    "/users/login",
+    {
+      username,
+      password,
+    },
+    {
+      headers: {
+        Authorization: token,
+      },
+    },
+    { withCredentials: true }
+  );
 
   const { data } = response.data;
   const userAuthInfo = loginDetails(
@@ -89,7 +114,8 @@ export const fetchUser = (username, password) => async (dispatch) => {
     data.email,
     data.id,
     response.data.logged_in,
-    response.data.status.code
+    response.data.status.code,
+    data.token
   );
 
   if (response.data.status.code === 200) {
@@ -100,11 +126,21 @@ export const fetchUser = (username, password) => async (dispatch) => {
   }
 };
 
-export const editUser = (id, formValues) => async (dispatch) => {
+export const editUser = (id, formValues, token) => async (dispatch) => {
   // Add proper error handling
-  const response = await users.put(`users/${id}`, formValues);
-
+  console.log("token:", token);
+  const response = await database.put(
+    `users/${id}`,
+    formValues,
+    {
+      headers: {
+        Authorization: token,
+      },
+    },
+    { withCredentials: true }
+  );
   const { data } = response.data;
+
   const editedUser = loginDetails(
     data.fname,
     data.lname,
@@ -112,7 +148,8 @@ export const editUser = (id, formValues) => async (dispatch) => {
     data.email,
     data.id,
     true,
-    response.data.status.code
+    response.data.status.code,
+    response.config.headers.Authorization
   );
 
   dispatch({ type: EDIT_USER, payload: editedUser });
@@ -120,8 +157,31 @@ export const editUser = (id, formValues) => async (dispatch) => {
 };
 
 export const deleteUser = (id) => async (dispatch) => {
-  await users.delete(`users/${id}`);
+  await database.delete(`users/${id}`);
 
   dispatch({ type: DELETE_USER, payload: id });
   history.push(`/`);
+};
+
+/// ////////////////////////////
+/// / WATCHLIST ACTION CREATORS
+/// ///////////////////////////
+
+export const createWatchlist = (formValues) => async (dispatch) => {
+  const response = await database.post("/api/v1/watchlists", formValues);
+  // Add proper error handling
+  const { data } = response.data;
+  console.log("data:", data);
+
+  // if (response.status === 200) {
+  //   dispatch({ type: CREATE_USER, payload: userAuthInfo });
+  //   history.push("/");
+  // } else {
+  //   history.push("/error/createuser");
+  //   // dispatch({ type: "CREATE_USER_ERROR", payload: response });
+  // }
+};
+
+export const deleteWatchlist = () => {
+  return "hello";
 };
