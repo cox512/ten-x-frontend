@@ -4,24 +4,25 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Modal from "../Modal";
 import history from "../../history";
-import { deleteUser, signOut } from "../../actions/index";
+import * as actions from "../../actions";
 
 // eslint-disable-next-line no-shadow
-const UserDelete = ({ currentUserId, currentUsername, signOut, deleteUser }) => {
-  const handleDelete = (id) => {
-    deleteUser(id);
+const UserDelete = ({ token, userId, currentUsername, signOut, deleteUser }) => {
+  const handleDelete = () => {
+    deleteUser(userId, token);
     signOut();
   };
+
   const renderActions = () => {
     return (
       <div className="user-delete">
         <button
           className="ui inverted button negative"
           type="button"
-          onClick={() => handleDelete(currentUserId)}>
+          onClick={() => handleDelete(userId)}>
           Delete
         </button>
-        <Link className="ui inverted button primary" to={`/user/show/${currentUserId}`}>
+        <Link className="ui inverted button primary" to={`/user/show/${userId}`}>
           Cancel
         </Link>
       </div>
@@ -41,13 +42,17 @@ const UserDelete = ({ currentUserId, currentUsername, signOut, deleteUser }) => 
       header="Delete Profile"
       content={renderContent()}
       actions={renderActions()}
-      onDismiss={() => history.push(`/user/show/${currentUserId}`)}
+      onDismiss={() => history.push(`/user/show/${userId}`)}
     />
   );
 };
 
 const mapStateToProps = (state) => {
-  return { currentUserId: state.user.auth.userId, currentUsername: state.user.profile.username };
+  return {
+    token: state.user.auth.token,
+    userId: state.user.auth.userId,
+    currentUsername: state.user.profile.username,
+  };
 };
 
-export default connect(mapStateToProps, { deleteUser, signOut })(UserDelete);
+export default connect(mapStateToProps, actions)(UserDelete);

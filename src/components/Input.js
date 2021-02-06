@@ -1,9 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-// import { connect } from "react-redux";
-
 import SearchResults from "./stockDisplay/SearchResults";
-// import { fetchStockDayPerf } from "../actions";
 
 const Input = () => {
   const [term, setTerm] = useState("");

@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import useStocks from "../../hooks/useStocks";
-import { fetchStockDayPerf, fetchStockOverview } from "../../actions";
+import * as actions from "../../actions";
 
 // You may not need to destructure the 2 'fetch' functions in the Component def
 // eslint-disable-next-line no-shadow
@@ -66,17 +66,4 @@ export const UnconnectedSearchResults = ({ term, fetchStockDayPerf, fetchStockOv
   );
 };
 
-// const mapStateToProps = (state) => {
-//   // console.log("stockResults state:", state);
-//   return {
-//     stockDay: state.stockDay,
-//     stockOverview: state.stockOverview,
-//   };
-// };
-
-export default connect(null, {
-  fetchStockDayPerf,
-  fetchStockOverview,
-})(UnconnectedSearchResults);
-
-// export default SearchResults;
+export default connect(null, actions)(UnconnectedSearchResults);

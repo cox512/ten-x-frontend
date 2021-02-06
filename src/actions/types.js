@@ -3,10 +3,8 @@ export const STOCK_OVERVIEW = "STOCK_OVERVIEW";
 
 export const SIGN_OUT = "SIGN_OUT";
 
-export const CREATE_USER = "CREATE_USER";
-export const FETCH_USER = "FETCH_USER";
+export const UPDATE_USER = "UPDATE_USER";
 export const DELETE_USER = "DELETE_USER";
-export const EDIT_USER = "EDIT_USER";
 
 export const CREATE_WATCHLIST = "CREATE_WATCHLIST";
 export const FETCH_WATCHLIST = "FETCH_WATCHLIST";

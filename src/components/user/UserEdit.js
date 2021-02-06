@@ -3,7 +3,7 @@
 import React from "react";
 import _ from "lodash";
 import { connect } from "react-redux";
-import { editUser } from "../../actions";
+import * as actions from "../../actions";
 import UserForm from "./UserForm";
 
 const UserEdit = ({ editUser, currentUserId, currentUser, token }) => {
@@ -31,4 +31,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { editUser })(UserEdit);
+export default connect(mapStateToProps, actions)(UserEdit);

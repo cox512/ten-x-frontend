@@ -4,7 +4,7 @@ import React, { useCallback } from "react";
 import { Field, reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchUser } from "../actions";
+import * as actions from "../actions";
 import Button from "./Button";
 
 // eslint-disable-next-line no-shadow
@@ -76,4 +76,4 @@ const mapStateToProps = (state) => {
 
 const formWrapped = reduxForm({ form: "loginForm", validate })(Login);
 
-export default connect(mapStateToProps, { fetchUser })(formWrapped);
+export default connect(mapStateToProps, actions)(formWrapped);

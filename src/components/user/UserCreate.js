@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import React from "react";
 import { connect } from "react-redux";
-import { createUser } from "../../actions";
+import * as actions from "../../actions";
 import UserForm from "./UserForm";
 
 // eslint-disable-next-line no-shadow
@@ -19,4 +19,4 @@ const UserCreate = ({ createUser }) => {
   );
 };
 
-export default connect(null, { createUser })(UserCreate);
+export default connect(null, actions)(UserCreate);

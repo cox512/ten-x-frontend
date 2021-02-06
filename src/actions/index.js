@@ -7,11 +7,8 @@ import {
   STOCK_DAY_PERFORMANCE,
   STOCK_OVERVIEW,
   SIGN_OUT,
-  CREATE_USER,
-  FETCH_USER,
+  UPDATE_USER,
   DELETE_USER,
-  EDIT_USER,
-  CREATE_WATCHLIST,
   FETCH_WATCHLISTS,
   FETCH_WATCHLIST,
   EDIT_WATCHLIST,
@@ -35,10 +32,8 @@ const loginDetails = (fname, lname, username, email, userId, isSignedIn, status,
   };
 };
 
-export const signOut = (id, token) => async (dispatch) => {
-  const response = await database.get(`/users/logout/${id}`, {
-    headers: { Authorization: token },
-  });
+export const signOut = () => async (dispatch) => {
+  const response = await database.get(`/users/logout`);
 
   console.log(response);
 
@@ -83,13 +78,19 @@ export const createUser = (formValues) => async (dispatch) => {
   );
 
   if (response.status === 200) {
-    dispatch({ type: CREATE_USER, payload: userAuthInfo });
+    dispatch({ type: UPDATE_USER, payload: userAuthInfo });
     history.push("/");
   } else {
     history.push("/error/createuser");
     // dispatch({ type: "CREATE_USER_ERROR", payload: response });
   }
 };
+
+// export const checkUser = () => async (dispatch) => {
+//   const response = await database.get("/users/");
+
+//   console.log("response:", response);
+// };
 
 export const fetchUser = (username, password, token) => async (dispatch) => {
   const response = await database.post(
@@ -119,7 +120,7 @@ export const fetchUser = (username, password, token) => async (dispatch) => {
   );
 
   if (response.data.status.code === 200) {
-    dispatch({ type: FETCH_USER, payload: userAuthInfo });
+    dispatch({ type: UPDATE_USER, payload: userAuthInfo });
     history.push(`/`);
   } else {
     history.push("/error/login");
@@ -152,12 +153,20 @@ export const editUser = (id, formValues, token) => async (dispatch) => {
     response.config.headers.Authorization
   );
 
-  dispatch({ type: EDIT_USER, payload: editedUser });
+  dispatch({ type: UPDATE_USER, payload: editedUser });
   history.push(`/user/show/${id}`);
 };
 
-export const deleteUser = (id) => async (dispatch) => {
-  await database.delete(`users/${id}`);
+export const deleteUser = (id, token) => async (dispatch) => {
+  await database.delete(
+    `users/${id}`,
+    {
+      headers: {
+        Authorization: token,
+      },
+    },
+    { withCredentials: true }
+  );
 
   dispatch({ type: DELETE_USER, payload: id });
   history.push(`/`);
@@ -167,8 +176,18 @@ export const deleteUser = (id) => async (dispatch) => {
 /// / WATCHLIST ACTION CREATORS
 /// ///////////////////////////
 
-export const createWatchlist = (formValues) => async (dispatch) => {
-  const response = await database.post("/api/v1/watchlists", formValues);
+export const createWatchlist = (formValues, token) => async (dispatch) => {
+  console.log(formValues, token);
+  const response = await database.post(
+    "/api/v1/watchlists/",
+    formValues,
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+    // { withCredentials: true }
+  );
   // Add proper error handling
   const { data } = response.data;
   console.log("data:", data);

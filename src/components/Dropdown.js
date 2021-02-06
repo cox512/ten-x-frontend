@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Button from "./Button";
 
-const Dropdown = ({ label, options, header }) => {
+const Dropdown = ({ text, label, options, header }) => {
   const renderedOptions = options.map((option) => {
     return (
       <div key={option.props.children} className="dropdown__item">
@@ -17,6 +17,7 @@ const Dropdown = ({ label, options, header }) => {
       <div className="dropdown__content">
         <div className="dropdown__header">{header}</div>
         <div className="ui divider" />
+        {text}
         {renderedOptions}
         {header === "Watchlists" ? (
           <Link to="/watchlist/WatchlistCreate">

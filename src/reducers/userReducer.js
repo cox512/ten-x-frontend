@@ -1,21 +1,25 @@
 import _ from "lodash";
 
-import { CREATE_USER, FETCH_USER, DELETE_USER, EDIT_USER, SIGN_OUT } from "../actions/types";
+import { SIGN_OUT, UPDATE_USER, DELETE_USER } from "../actions/types";
 
 const INITIAL_STATE = {
   profile: {},
   auth: { isSignedIn: false },
 };
+
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case FETCH_USER:
-    case CREATE_USER:
-    case SIGN_OUT:
-    case EDIT_USER:
+    case UPDATE_USER:
       return { ...state, ...action.payload };
 
     case DELETE_USER:
       return _.omit(state, action.payload);
+
+    case SIGN_OUT:
+      return {
+        profile: {},
+        auth: { isSignedIn: false },
+      };
 
     default:
       return state;

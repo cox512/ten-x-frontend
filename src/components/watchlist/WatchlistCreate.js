@@ -1,18 +1,19 @@
 /* eslint-disable no-shadow */
 import React from "react";
 import { connect } from "react-redux";
-import { createWatchlist } from "../../actions";
+import * as actions from "../../actions";
 import Modal from "../Modal";
 import history from "../../history";
 import WatchlistForm from "./WatchlistForm";
+// import Button from "../Button";
 
-const WatchlistCreate = ({ createWatchlist }) => {
+const WatchlistCreate = ({ createWatchlist, token }) => {
   const onSubmit = (formValues) => {
-    createWatchlist(formValues);
+    createWatchlist(formValues, token);
   };
 
   const renderContent = () => {
-    return <WatchlistForm submitWatchlist={onSubmit} buttonText="Create a New Watchlist" />;
+    return <WatchlistForm submitWatchlist={onSubmit} buttonText="Create Watchlist" />;
   };
 
   return (
@@ -24,4 +25,10 @@ const WatchlistCreate = ({ createWatchlist }) => {
   );
 };
 
-export default connect(null, { createWatchlist })(WatchlistCreate);
+const mapStateToProps = (state) => {
+  return {
+    token: state.user.auth.token,
+  };
+};
+
+export default connect(mapStateToProps, actions)(WatchlistCreate);

@@ -1,6 +1,8 @@
 /* eslint-disable arrow-body-style */
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Router } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "../actions";
 import history from "../history";
 
 import NavBar from "./NavBar";
@@ -27,7 +29,11 @@ import LogInError from "./errors/LogInError";
 import LogoutError from "./errors/LogoutError";
 
 // eslint-disable-next-line react/prop-types
-const App = () => {
+const App = ({ checkUser }) => {
+  // useEffect(() => {
+  //   checkUser();
+  // }, []);
+
   return (
     <div data-test="component-app">
       <Router history={history}>
@@ -66,4 +72,4 @@ const App = () => {
 
 // export default connect(mapStateToProps, { fetchStockDayPerf })(App);
 
-export default App;
+export default connect(null, actions)(App);

@@ -35,7 +35,7 @@ const WatchlistForm = ({ handleSubmit, formHeader, buttonText, submitWatchlist }
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="ui form error">
       <h3 className="watchlist__form--header">{formHeader}</h3>
-      <Field name="name" type="text" component={renderInput} label="Watchlist Name" />
+      <Field name="title" type="text" component={renderInput} label="Watchlist Name" />
       <div className="watchlist__button">
         <Button type="submit" text={buttonText} />
       </div>
