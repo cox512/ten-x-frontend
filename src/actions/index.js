@@ -9,6 +9,7 @@ import {
   SIGN_OUT,
   UPDATE_USER,
   DELETE_USER,
+  CREATE_WATCHLIST,
   FETCH_WATCHLISTS,
   FETCH_WATCHLIST,
   EDIT_WATCHLIST,
@@ -86,11 +87,19 @@ export const createUser = (formValues) => async (dispatch) => {
   }
 };
 
-// export const checkUser = () => async (dispatch) => {
-//   const response = await database.get("/users/");
+export const checkUser = (token) => async (dispatch) => {
+  const response = await database.get(
+    "/users/",
+    {
+      headers: {
+        Authorization: token,
+      },
+    },
+    { withCredentials: true }
+  );
 
-//   console.log("response:", response);
-// };
+  console.log("response:", response);
+};
 
 export const fetchUser = (username, password, token) => async (dispatch) => {
   const response = await database.post(
@@ -129,7 +138,6 @@ export const fetchUser = (username, password, token) => async (dispatch) => {
 
 export const editUser = (id, formValues, token) => async (dispatch) => {
   // Add proper error handling
-  console.log("token:", token);
   const response = await database.put(
     `users/${id}`,
     formValues,
@@ -176,29 +184,34 @@ export const deleteUser = (id, token) => async (dispatch) => {
 /// / WATCHLIST ACTION CREATORS
 /// ///////////////////////////
 
+const updateWatchlist = (dateCreated, id, title) => {
+  return {
+    dateCreated,
+    id,
+    title,
+  };
+};
+
 export const createWatchlist = (formValues, token) => async (dispatch) => {
-  console.log(formValues, token);
-  const response = await database.post(
-    "/api/v1/watchlists/",
-    formValues,
-    {
-      headers: {
-        Authorization: token,
-      },
-    }
-    // { withCredentials: true }
-  );
+  const response = await database.post("/api/v1/watchlists/", formValues, {
+    headers: {
+      Authorization: token,
+    },
+  });
   // Add proper error handling
   const { data } = response.data;
-  console.log("data:", data);
 
-  // if (response.status === 200) {
-  //   dispatch({ type: CREATE_USER, payload: userAuthInfo });
-  //   history.push("/");
-  // } else {
-  //   history.push("/error/createuser");
-  //   // dispatch({ type: "CREATE_USER_ERROR", payload: response });
-  // }
+  const returnedWatchlist = updateWatchlist(data.created_at, data.id, data.title);
+
+  console.log("returned list:", returnedWatchlist);
+
+  if (response.status === 200) {
+    dispatch({ type: CREATE_WATCHLIST, payload: returnedWatchlist });
+    history.push("/");
+  } else {
+    history.push("/error/createuser");
+    // dispatch({ type: "CREATE_USER_ERROR", payload: response });
+  }
 };
 
 export const deleteWatchlist = () => {

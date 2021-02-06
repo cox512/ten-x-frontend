@@ -29,10 +29,18 @@ const UserAuth = ({ signOut, watchlists, authData }) => {
     </Link>,
   ];
 
-  const renderText = () => {
+  if (watchlists[0]) {
+    console.log("list title:", watchlists[0].title);
+  }
+
+  const renderedWatchlists = () => {
     if (!watchlists[0]) {
       return "You currently have no watchlists";
     }
+    // eslint-disable-next-line array-callback-return
+    watchlists.map((watchlist) => {
+      console.log(watchlist);
+    });
   };
   // eslint-disable-next-line consistent-return
   const renderAuthButton = () => {
@@ -48,12 +56,16 @@ const UserAuth = ({ signOut, watchlists, authData }) => {
               <Link to="/" onClick={() => signOut(authData.userId)}>
                 <Button type="button" text="Log Out" />
               </Link>
-              <Dropdown
-                label="Watchlists"
-                header="Watchlists"
-                text={renderText()}
-                options={watchlists}
-              />
+              <div className="dropdown">
+                Watchlists
+                <div className="dropdown__content">
+                  <div className="dropdown__header">Watchlists</div>
+                  <div className="ui divider" />
+                  <Link to="/watchlist/WatchlistCreate">
+                    <Button text="Create New Watchlist" />
+                  </Link>
+                </div>
+              </div>
             </div>
             <Dropdown label={label} header="Account Settings" options={authOptions} />
           </>
@@ -71,7 +83,7 @@ const UserAuth = ({ signOut, watchlists, authData }) => {
 const mapStateToProps = (state) => {
   return {
     authData: state.user.auth,
-    watchlists: state.watchlists.watchlists,
+    watchlists: state.watchlists,
   };
 };
 

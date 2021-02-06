@@ -17,7 +17,6 @@ const Dropdown = ({ text, label, options, header }) => {
       <div className="dropdown__content">
         <div className="dropdown__header">{header}</div>
         <div className="ui divider" />
-        {text}
         {renderedOptions}
         {header === "Watchlists" ? (
           <Link to="/watchlist/WatchlistCreate">

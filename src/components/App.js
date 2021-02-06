@@ -29,10 +29,10 @@ import LogInError from "./errors/LogInError";
 import LogoutError from "./errors/LogoutError";
 
 // eslint-disable-next-line react/prop-types
-const App = ({ checkUser }) => {
-  // useEffect(() => {
-  //   checkUser();
-  // }, []);
+const App = ({ checkUser, token }) => {
+  useEffect(() => {
+    checkUser(token);
+  }, []);
 
   return (
     <div data-test="component-app">
@@ -65,11 +65,10 @@ const App = ({ checkUser }) => {
   );
 };
 
-// const mapStateToProps = (state) => {
-//   console.log("App state:", state);
-//   return { stockDay: state.stockDay, stockOverview: state.stockOverview };
-// };
+const mapStateToProps = (state) => {
+  return {
+    token: state.user.auth.token,
+  };
+};
 
-// export default connect(mapStateToProps, { fetchStockDayPerf })(App);
-
-export default connect(null, actions)(App);
+export default connect(mapStateToProps, actions)(App);
