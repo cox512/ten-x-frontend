@@ -7,9 +7,10 @@ import { Link } from "react-router-dom";
 import * as actions from "../../actions";
 import Dropdown from "../Dropdown";
 import Button from "../Button";
+import Watchlists from "../watchlist/Watchlists";
 
 // eslint-disable-next-line no-shadow
-const UserAuth = ({ signOut, watchlists, authData }) => {
+const UserAuth = ({ signOut, authData }) => {
   const label = <i className="nav__item user circle outline icon" />;
   const noAuthOptions = [
     <Link to="/login" className="profile__item">
@@ -29,20 +30,6 @@ const UserAuth = ({ signOut, watchlists, authData }) => {
     </Link>,
   ];
 
-  if (watchlists[0]) {
-    console.log("list title:", watchlists[0].title);
-  }
-
-  const renderedWatchlists = () => {
-    if (!watchlists[0]) {
-      return "You currently have no watchlists";
-    }
-    // eslint-disable-next-line array-callback-return
-    watchlists.map((watchlist) => {
-      console.log(watchlist);
-    });
-  };
-  // eslint-disable-next-line consistent-return
   const renderAuthButton = () => {
     switch (authData.isSignedIn) {
       // case null:
@@ -61,8 +48,11 @@ const UserAuth = ({ signOut, watchlists, authData }) => {
                 <div className="dropdown__content">
                   <div className="dropdown__header">Watchlists</div>
                   <div className="ui divider" />
-                  <Link to="/watchlist/WatchlistCreate">
-                    <Button text="Create New Watchlist" />
+
+                  <Watchlists />
+
+                  <Link to="/watchlist/create">
+                    <Button text="Create Watchlist" />
                   </Link>
                 </div>
               </div>
@@ -83,7 +73,6 @@ const UserAuth = ({ signOut, watchlists, authData }) => {
 const mapStateToProps = (state) => {
   return {
     authData: state.user.auth,
-    watchlists: state.watchlists,
   };
 };
 

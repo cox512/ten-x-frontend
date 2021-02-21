@@ -5,11 +5,11 @@ import * as actions from "../../actions";
 import Modal from "../Modal";
 import history from "../../history";
 import WatchlistForm from "./WatchlistForm";
-// import Button from "../Button";
 
-const WatchlistCreate = ({ createWatchlist, token }) => {
+const WatchlistCreate = ({ createWatchlist, fetchWatchlists, token }) => {
   const onSubmit = (formValues) => {
     createWatchlist(formValues, token);
+    fetchWatchlists(token);
   };
 
   const renderContent = () => {
@@ -28,6 +28,7 @@ const WatchlistCreate = ({ createWatchlist, token }) => {
 const mapStateToProps = (state) => {
   return {
     token: state.user.auth.token,
+    // userId: state.user.auth.userId,
   };
 };
 

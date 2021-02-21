@@ -1,5 +1,5 @@
 /* eslint-disable arrow-body-style */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Router } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../actions";
@@ -19,8 +19,7 @@ import UserShow from "./user/UserShow";
 
 import WatchlistCreate from "./watchlist/WatchlistCreate";
 import WatchlistDelete from "./watchlist/WatchlistDelete";
-import WatchlistEdit from "./watchlist/WatchlistEdit";
-import WatchlistList from "./watchlist/WatchlistList";
+import Watchlists from "./watchlist/Watchlists";
 import WatchlistShow from "./watchlist/WatchlistShow";
 
 import APIOvercallError from "./errors/APIOvercallError";
@@ -29,10 +28,16 @@ import LogInError from "./errors/LogInError";
 import LogoutError from "./errors/LogoutError";
 
 // eslint-disable-next-line react/prop-types
-const App = ({ checkUser, token }) => {
+const App = ({ fetchWatchlists, token, isSignedIn }) => {
+  const [currentList, setCurrentList] = useState({});
+
   useEffect(() => {
-    checkUser(token);
-  }, []);
+    if (isSignedIn) {
+      fetchWatchlists(token);
+    } else {
+      fetchWatchlists();
+    }
+  }, [token]);
 
   return (
     <div data-test="component-app">
@@ -50,11 +55,10 @@ const App = ({ checkUser, token }) => {
         <Route path="/user/edit/:id" component={UserEdit} />
         <Route path="/user/show/:id" component={UserShow} />
 
-        <Route path="/watchlist/WatchlistCreate" component={WatchlistCreate} />
-        <Route path="/watchlist/WatchlistDelete" component={WatchlistDelete} />
-        <Route path="/watchlist/WatchlistEdit/:id" component={WatchlistEdit} />
-        <Route path="/watchlist/WatchlistList" component={WatchlistList} />
-        <Route path="/watchlist/WatchlistShow" component={WatchlistShow} />
+        <Route path="/watchlist/create" component={WatchlistCreate} />
+        <Route path="/watchlist/delete/:id" component={WatchlistDelete} />
+        <Route path="/watchlist/all" component={Watchlists} />
+        <Route path="/watchlist/show/:id" component={WatchlistShow} />
 
         <Route path="/error/apiovercall" component={APIOvercallError} />
         <Route path="/error/createuser" component={CreateUserError} />
@@ -68,6 +72,8 @@ const App = ({ checkUser, token }) => {
 const mapStateToProps = (state) => {
   return {
     token: state.user.auth.token,
+    userId: state.user.auth.userId,
+    isSignedIn: state.user.auth.isSignedIn,
   };
 };
 

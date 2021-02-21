@@ -1,33 +1,13 @@
 /* eslint-disable consistent-return */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useCallback } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import Button from "../Button";
+import { renderInput } from "../../helpers/helpers";
 
 const WatchlistForm = ({ handleSubmit, formHeader, buttonText, submitWatchlist }) => {
-  const renderError = ({ error, touched }) => {
-    if (error && touched) {
-      return (
-        <div className="ui error message">
-          <div>{error}</div>
-        </div>
-      );
-    }
-  };
-
-  const renderInput = useCallback(({ input, label, type, meta }) => {
-    const className = `field ${meta.error && meta.touched ? "error" : ""}`;
-
-    return (
-      <div className={className}>
-        <label>{label}</label>
-        <input type={type} {...input} autoComplete="off" />
-        {renderError(meta)}
-      </div>
-    );
-  }, []);
-
   const onSubmit = (formValues) => {
     submitWatchlist(formValues);
   };
@@ -36,8 +16,11 @@ const WatchlistForm = ({ handleSubmit, formHeader, buttonText, submitWatchlist }
     <form onSubmit={handleSubmit(onSubmit)} className="ui form error">
       <h3 className="watchlist__form--header">{formHeader}</h3>
       <Field name="title" type="text" component={renderInput} label="Watchlist Name" />
-      <div className="watchlist__button">
+      <div className="watchlist__button" s>
         <Button type="submit" text={buttonText} />
+        <Link to="/">
+          <Button className="ui inverted button primary" text="Cancel" />
+        </Link>
       </div>
     </form>
   );
@@ -45,15 +28,11 @@ const WatchlistForm = ({ handleSubmit, formHeader, buttonText, submitWatchlist }
 
 const validate = (formValues) => {
   const errors = {};
-  if (!formValues.name) {
-    errors.name = "You must give your watchlist a name.";
+  if (!formValues.title) {
+    errors.title = "You must give your watchlist a name.";
   }
   return errors;
 };
-
-// const mapStateToProps = (state) => {
-//   return state;
-// };
 
 const formWrapped = reduxForm({ form: "watchlistForm", validate })(WatchlistForm);
 

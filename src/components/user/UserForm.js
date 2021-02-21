@@ -1,35 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-console */
-import React, { useCallback } from "react";
+import React from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import Button from "../Button";
+import { renderInput } from "../../helpers/helpers";
 
 // eslint-disable-next-line no-shadow
 const UserForm = ({ handleSubmit, submitUser, buttonText, formHeader, currentUserAuth }) => {
-  // eslint-disable-next-line consistent-return
-  const renderError = ({ error, touched }) => {
-    if (error && touched) {
-      return (
-        <div className="ui error message">
-          <div>{error}</div>
-        </div>
-      );
-    }
-  };
-
-  const renderInput = useCallback(({ input, label, type, meta }) => {
-    const className = `field ${meta.error && meta.touched ? "error" : ""}`;
-
-    return (
-      <div className={className}>
-        <label>{label}</label>
-        <input type={type} {...input} autoComplete="off" />
-        {renderError(meta)}
-      </div>
-    );
-  }, []);
-
   const onSubmit = (formValues) => {
     submitUser(formValues);
   };

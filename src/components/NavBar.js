@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
 import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import UserAuth from "./user/UserAuth";
+// import * as actions from "../actions";
 
 const NavBar = () => {
   return (
@@ -16,12 +18,12 @@ const NavBar = () => {
   );
 };
 
-// const mapStateToProps = (state) => {
-//   return {
-//     currentUserId: state.auth.userId,
-//     currentUserName: state.user.profile.fname,
-//   };
-// };
-// export default connect(mapStateToProps)(NavBar);
+// Currently don't need.
+const mapStateToProps = (state) => {
+  return {
+    userId: state.user.auth.userId,
+    token: state.user.auth.token,
+  };
+};
 
-export default NavBar;
+export default connect(mapStateToProps)(NavBar);

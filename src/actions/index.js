@@ -11,8 +11,6 @@ import {
   DELETE_USER,
   CREATE_WATCHLIST,
   FETCH_WATCHLISTS,
-  FETCH_WATCHLIST,
-  EDIT_WATCHLIST,
   DELETE_WATCHLIST,
 } from "./types";
 
@@ -35,8 +33,6 @@ const loginDetails = (fname, lname, username, email, userId, isSignedIn, status,
 
 export const signOut = () => async (dispatch) => {
   const response = await database.get(`/users/logout`);
-
-  console.log(response);
 
   if (response.status === 200) {
     dispatch({ type: SIGN_OUT, payload: { profile: {}, auth: {} } });
@@ -87,8 +83,9 @@ export const createUser = (formValues) => async (dispatch) => {
   }
 };
 
-export const checkUser = (token) => async (dispatch) => {
-  const response = await database.get(
+// Is this check necessary?
+export const checkUser = (token) => {
+  database.get(
     "/users/",
     {
       headers: {
@@ -97,8 +94,6 @@ export const checkUser = (token) => async (dispatch) => {
     },
     { withCredentials: true }
   );
-
-  console.log("response:", response);
 };
 
 export const fetchUser = (username, password, token) => async (dispatch) => {
@@ -166,6 +161,7 @@ export const editUser = (id, formValues, token) => async (dispatch) => {
 };
 
 export const deleteUser = (id, token) => async (dispatch) => {
+  console.log("User id:", id);
   await database.delete(
     `users/${id}`,
     {
@@ -184,36 +180,48 @@ export const deleteUser = (id, token) => async (dispatch) => {
 /// / WATCHLIST ACTION CREATORS
 /// ///////////////////////////
 
-const updateWatchlist = (dateCreated, id, title) => {
-  return {
-    dateCreated,
-    id,
-    title,
-  };
-};
-
 export const createWatchlist = (formValues, token) => async (dispatch) => {
-  const response = await database.post("/api/v1/watchlists/", formValues, {
+  // Instead of dispatching to reducer we simply call the fetchWatchlists call immediately after createWatchlist
+  const res = await database.post("/api/v1/watchlists/", formValues, {
     headers: {
       Authorization: token,
     },
   });
-  // Add proper error handling
-  const { data } = response.data;
 
-  const returnedWatchlist = updateWatchlist(data.created_at, data.id, data.title);
+  const listId = res.data.data.id;
+  // console.log("res:", res);
+  history.push(`/watchlist/show/${listId}`);
 
-  console.log("returned list:", returnedWatchlist);
-
-  if (response.status === 200) {
-    dispatch({ type: CREATE_WATCHLIST, payload: returnedWatchlist });
-    history.push("/");
-  } else {
-    history.push("/error/createuser");
-    // dispatch({ type: "CREATE_USER_ERROR", payload: response });
-  }
+  dispatch({ type: CREATE_WATCHLIST });
 };
 
-export const deleteWatchlist = () => {
-  return "hello";
+export const fetchWatchlists = (token) => async (dispatch) => {
+  let data = {};
+
+  if (token) {
+    const response = await database.get("/api/v1/watchlists/", {
+      headers: {
+        Authorization: token,
+      },
+    });
+    data = response.data.data;
+  }
+
+  dispatch({ type: FETCH_WATCHLISTS, payload: data });
+};
+
+export const deleteWatchlist = (id, token) => async (dispatch) => {
+  console.log("deleteWatchlist id: ", id);
+  await database.delete(
+    `/api/v1/watchlists/${id}`,
+    {
+      headers: {
+        Authorization: token,
+      },
+    },
+    { withCredentials: true }
+  );
+
+  dispatch({ type: DELETE_WATCHLIST, payload: id });
+  history.push(`/`);
 };

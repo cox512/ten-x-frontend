@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Modal from "../Modal";
 import history from "../../history";
 import * as actions from "../../actions";
+import DeleteButton from "../DeleteButton";
 
 // eslint-disable-next-line no-shadow
 const UserDelete = ({ token, userId, currentUsername, signOut, deleteUser }) => {
@@ -15,13 +16,8 @@ const UserDelete = ({ token, userId, currentUsername, signOut, deleteUser }) => 
 
   const renderActions = () => {
     return (
-      <div className="user-delete">
-        <button
-          className="ui inverted button negative"
-          type="button"
-          onClick={() => handleDelete(userId)}>
-          Delete
-        </button>
+      <div className="modal-actions">
+        <DeleteButton handleDelete={handleDelete} />
         <Link className="ui inverted button primary" to={`/user/show/${userId}`}>
           Cancel
         </Link>
