@@ -48,9 +48,7 @@ const UserAuth = ({ signOut, authData }) => {
                 <div className="dropdown__content">
                   <div className="dropdown__header">Watchlists</div>
                   <div className="ui divider" />
-
                   <Watchlists />
-
                   <Link to="/watchlist/create">
                     <Button text="Create Watchlist" />
                   </Link>

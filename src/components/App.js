@@ -27,9 +27,15 @@ import CreateUserError from "./errors/CreateUserError";
 import LogInError from "./errors/LogInError";
 import LogoutError from "./errors/LogoutError";
 
+import WatchlistContext from "../contexts/WatchlistContext";
+
 // eslint-disable-next-line react/prop-types
 const App = ({ fetchWatchlists, token, isSignedIn }) => {
   const [currentList, setCurrentList] = useState({});
+
+  // useEffect(() => {
+  //   console.log("currentList on load:", currentList);
+  // }, []);
 
   useEffect(() => {
     if (isSignedIn) {
@@ -39,8 +45,14 @@ const App = ({ fetchWatchlists, token, isSignedIn }) => {
     }
   }, [token]);
 
+  // useEffect(() => {
+  //   console.log("currentList:", currentList);
+
+  // }, [currentList]);
+
   return (
     <div data-test="component-app">
+      {/* <WatchlistContext.Provider value={[currentList, setCurrentList]}> */}
       <Router history={history}>
         <NavBar />
 
@@ -55,16 +67,19 @@ const App = ({ fetchWatchlists, token, isSignedIn }) => {
         <Route path="/user/edit/:id" component={UserEdit} />
         <Route path="/user/show/:id" component={UserShow} />
 
-        <Route path="/watchlist/create" component={WatchlistCreate} />
-        <Route path="/watchlist/delete/:id" component={WatchlistDelete} />
-        <Route path="/watchlist/all" component={Watchlists} />
-        <Route path="/watchlist/show/:id" component={WatchlistShow} />
+        <WatchlistContext.Provider value={[currentList, setCurrentList]}>
+          <Route path="/watchlist/create" component={WatchlistCreate} />
+          <Route path="/watchlist/delete/:id" component={WatchlistDelete} />
+          <Route path="/watchlist/all" component={Watchlists} />
+          <Route path="/watchlist/show/:id" component={WatchlistShow} />
+        </WatchlistContext.Provider>
 
         <Route path="/error/apiovercall" component={APIOvercallError} />
         <Route path="/error/createuser" component={CreateUserError} />
         <Route path="/error/login" component={LogInError} />
         <Route path="/error/logout" component={LogoutError} />
       </Router>
+      {/* </WatchlistContext.Provider> */}
     </div>
   );
 };
@@ -74,6 +89,7 @@ const mapStateToProps = (state) => {
     token: state.user.auth.token,
     userId: state.user.auth.userId,
     isSignedIn: state.user.auth.isSignedIn,
+    // watchlists: state.watchlists,
   };
 };
 
