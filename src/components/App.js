@@ -69,7 +69,11 @@ const App = ({ fetchWatchlists, token, isSignedIn }) => {
 
         <WatchlistContext.Provider value={[currentList, setCurrentList]}>
           <Route path="/watchlist/create" component={WatchlistCreate} />
-          <Route path="/watchlist/delete/:id" component={WatchlistDelete} />
+          <Route
+            path="/watchlist/delete/:id"
+            component={WatchlistDelete}
+            currentList={currentList}
+          />
           <Route path="/watchlist/all" component={Watchlists} />
           <Route path="/watchlist/show/:id" component={WatchlistShow} />
         </WatchlistContext.Provider>

@@ -1,5 +1,6 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-console */
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../../actions";
@@ -9,6 +10,16 @@ import DeleteButton from "../DeleteButton";
 import WatchlistContext from "../../contexts/WatchlistContext";
 
 const WatchlistDelete = ({ listId, token, deleteWatchlist, watchlists }) => {
+  const list = useContext(WatchlistContext);
+  useEffect(() => {
+    console.log("list:", list);
+
+    if (list) {
+      list[1](watchlists[listId]);
+    }
+    console.log("list:", list);
+  }, [list]);
+
   const handleDelete = () => {
     deleteWatchlist(listId, token);
   };
@@ -24,31 +35,22 @@ const WatchlistDelete = ({ listId, token, deleteWatchlist, watchlists }) => {
     );
   };
 
-  const renderContent = (value) => {
-    console.log("value:", value);
-    if (!value) {
+  const renderContent = (list) => {
+    console.log("content list:", list);
+    if (!list[0]) {
       return "Are you sure you want to delete this watchlist? You will lose all of the stocks that you have saved in it. This action can not be reversed.";
     }
-    return `Are you sure you want to delete the ${value} watchlist? You will lose all of the stocks that you have saved in it. This action can not be reversed.`;
+    return `Are you sure you want to delete the ${list[0].title} watchlist? You will lose all of the stocks that you have saved in it. This action can not be reversed.`;
   };
 
   return (
-    <WatchlistContext.Consumer>
-      {(value) => {
-        console.log(value);
-        value[1](watchlists[listId]);
-        // console.log("title", title);
-        return (
-          <Modal
-            data-test="component-user-delete"
-            header="Delete Profile"
-            content={renderContent(value[0].title)}
-            actions={renderActions()}
-            onDismiss={() => history.push(`/watchlist/show/${listId}`)}
-          />
-        );
-      }}
-    </WatchlistContext.Consumer>
+    <Modal
+      data-test="component-user-delete"
+      header="Delete Profile"
+      content={renderContent(list)}
+      actions={renderActions()}
+      onDismiss={() => history.push(`/watchlist/show/${listId}`)}
+    />
   );
 };
 

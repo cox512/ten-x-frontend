@@ -6,6 +6,7 @@ import * as actions from "../../actions";
 import StockCard from "../stockDisplay/StockCard";
 
 const WatchlistShow = ({ watchlist, listId }) => {
+  // console.log("watchlist:", watchlist);
   return (
     <div data-test="component-watchlists-show">
       <StockCard />
